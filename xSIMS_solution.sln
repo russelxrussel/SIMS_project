@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "xSIMS", "xSIMS\", "{FCD1F162-1E66-4F8A-B1F5-860C6A1B3531}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		Debug.AspNetCompiler.VirtualPath = "/xSIMS"
+		Debug.AspNetCompiler.PhysicalPath = "xSIMS\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\xSIMS\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/xSIMS"
+		Release.AspNetCompiler.PhysicalPath = "xSIMS\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\xSIMS\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1152"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCD1F162-1E66-4F8A-B1F5-860C6A1B3531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD1F162-1E66-4F8A-B1F5-860C6A1B3531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
