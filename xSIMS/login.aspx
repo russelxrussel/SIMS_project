@@ -64,7 +64,6 @@
  <div id="bg">
     <div id="mainLogin">
     <div id="LoginContent">
-
         
         <asp:TextBox ID="txtUserId" runat="server" CssClass="inputUserName"  AutoCompleteType="Disabled"></asp:TextBox>
         
