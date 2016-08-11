@@ -89,24 +89,25 @@ namespace SIMSBDAL
             dd.DataTextField = dt.Columns["LevelTypeDesc"].ToString();
             dd.DataValueField = dt.Columns["LevelTypeCode"].ToString();
             dd.DataBind();
+
+           
         }
 
         //Getting Applicant Strand for Grade 11 to 12
-        public DataTable getApplicantStrand()
+        public DataTable GET_LEVEL_STRAND()
         { 
             DataTable dt = new DataTable();
-            string strSQL = "Select StrandCode, StrandName from xSystem.Strand_RF order by ID";
-            dt = queryCommandDT(strSQL);
-
+            string strSQL = "spGET_STRAND_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
             return dt;
         }
 
        //Getting Gender 
-        public DataTable getGender()
+        public DataTable GET_GENDER()
         {
             DataTable dt = new DataTable();
-            string strSQL = "Select GenderCode,GenderDesc from Utilities.Gender_RF order by ID";
-            dt = queryCommandDT(strSQL);
+            string strSQL = "spGET_GENDER_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
 
             return dt;
         }
@@ -122,38 +123,103 @@ namespace SIMSBDAL
             return dt;
         }
 
-        public DataTable getBarangay()
+        public DataTable GET_BARANGAY()
         {
             DataTable dt = new DataTable();
-            string strSQL = "Select BarangayCode,BarangayDesc from Utilities.Barangay_RF";
-            dt = queryCommandDT(strSQL);
-
+            string strSQL = "spGET_BARANGAY_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
             return dt;
         }
 
 
         //Get City/Province
-        public DataTable getCity()
+        public DataTable GET_CITY()
         {
             DataTable dt = new DataTable();
-            string strSQL = "Select CityCode,CityDesc from Utilities.CityProvince_RF order by Arr";
-            dt = queryCommandDT(strSQL);
+            string strSQL = "spGET_CITY_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
 
             return dt;
         }
 
 
-        public DataTable getScreeningType ()
+        //Get Citizenship
+        public DataTable GET_CITIZENSHIP()
         {
             DataTable dt = new DataTable();
-            string strSQL = "Select ScreeningCode,ScreeningDesc from Utilities.ScreeningType_RF order by Arr";
-            dt = queryCommandDT(strSQL);
+            string strSQL = "spGET_CITIZENSHIP_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
 
-            return dt; 
+            return dt;
         }
 
+        //Get Religion
+        public DataTable GET_RELIGION()
+        {
+            DataTable dt = new DataTable();
+            string strSQL = "spGET_RELIGION_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
 
-        public DataTable getApplicantHealthStatus()
+            return dt;
+       }
+        
+        //Get Education Background Type
+        public DataTable GET_EDUBACKGROUND()
+        {
+            DataTable dt = new DataTable();
+            string strSQL = "spGetEduTypeList";
+            dt = queryCommandDT_StoredProc(strSQL);
+         
+            return dt;
+        }
+    
+
+        //Get MODE OF TRANSPORTATION
+        public DataTable GET_MOT()
+        {
+            DataTable dt = new DataTable();
+            string strSQL = "spGET_MOT_LIST";
+            dt = queryCommandDT_StoredProc(strSQL);
+
+            return dt;
+        }
+
+        //Section List
+        public DataTable GET_SECTION_LIST()
+        {
+            DataTable dt = new DataTable();
+            dt = queryCommandDT_StoredProc("spGetSectionList");
+
+            return dt;
+        }
+
+        //Room List
+        public DataTable GET_ROOM_LIST()
+        {
+            DataTable dt = new DataTable();
+            dt = queryCommandDT_StoredProc("spGetRoomList");
+
+            return dt;
+        }
+
+        //List of Teacher
+        public DataTable GET_TEACHER_LIST()
+        {
+            DataTable dt = new DataTable();
+            dt = queryCommandDT_StoredProc("spGetTeacherList");
+
+            return dt;
+        }
+
+        public DataTable GET_SCREENING_STATUS()
+        {
+            DataTable dt = new DataTable();
+            dt = queryCommandDT_StoredProc("spScreeningStat");
+            return dt;
+       }
+
+
+        public DataTable GET_APPLICANT_HEALTH_STATUS()
         {
 
             DataTable dt = new DataTable();
@@ -163,8 +229,63 @@ namespace SIMSBDAL
             return dt; 
         }
 
-     
+        //Guidance Scheduling-Assignment and Setup
+        public DataTable GET_SCREENING_TYPE()
+        {
+            DataTable dt = new DataTable();
+            string strSQL = "Select ScreeningCode,ScreeningDesc from Utilities.ScreeningType_RF order by Arr";
+            dt = queryCommandDT(strSQL);
 
+            return dt;
+        } 
+
+        //FOR TESTING STATUS
+        public DataTable getGeneralStatus(string _acode)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("spDisplayGeneralStatus", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ACODE", _acode);
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+           
+        }
+
+
+        public string RET_LEVELTYPEDESC(string _leveltypecode)
+        {
+         string ret_string = "";
+
+         using (SqlConnection cn = new SqlConnection(CS))
+         {
+             using (SqlCommand cmd = new SqlCommand("Select LevelTypeDesc from xSystem.LevelType_RF where LevelTypeCode='" + _leveltypecode + "'", cn))
+             {
+                 cn.Open();
+                 SqlDataReader dr = cmd.ExecuteReader();
+
+                 if (dr.HasRows)
+                 {
+                     while (dr.Read())
+                     {
+                         ret_string = dr["LevelTypeDesc"].ToString();
+                     }
+                 }
+
+                 
+             }
+         }
+         return ret_string;
+
+        }
 
     }
 

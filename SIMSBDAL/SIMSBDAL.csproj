@@ -44,11 +44,13 @@
   <ItemGroup>
     <Compile Include="Applicant.cs" />
     <Compile Include="AutoNumber.cs" />
+    <Compile Include="Health.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Student.cs" />
     <Compile Include="xSystem.cs" />
     <Compile Include="userMenu.cs" />
     <Compile Include="Utilities.cs" />

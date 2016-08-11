@@ -13,7 +13,7 @@ namespace SIMSBDAL
     public class userMenu: cBase 
     {
 
-        public DataSet displayUserMenu(string _UserCode)
+        public DataSet displayUserMenu(string _userid)
         {
             //DataSet ds = new DataSet();
             //string strSQL = "spUserMenuList";            
@@ -23,10 +23,10 @@ namespace SIMSBDAL
             DataSet ds = new DataSet();
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                using (SqlCommand cmd = new SqlCommand("spUserMenuList", cn))
+                using (SqlCommand cmd = new SqlCommand("spGET_USER_MENU", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@UserCode", _UserCode);
+                    cmd.Parameters.AddWithValue("@USERID", _userid);
                 
 
                     SqlDataAdapter da = new SqlDataAdapter();

@@ -38,6 +38,9 @@ namespace SIMSBDAL
 
         public static string ISAMSCS = ConfigurationManager.ConnectionStrings["CSISAMS"].ToString();
 
+        //SAP CONNECTION
+        public static string SAPCS = ConfigurationManager.ConnectionStrings["CSSAP1"].ToString();
+
         public static DataSet queryCommandDS(string sqlQuery)
         {
             DataSet ds = new DataSet();
@@ -53,7 +56,21 @@ namespace SIMSBDAL
             return ds;
         }
 
+        public static DataSet queryCommandDS_StoredProc(string sqlQuery)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                }
+            }
 
+            return ds;
+        }
         public static DataTable queryCommandDT(string sqlQuery)
         {
             DataTable dt = new DataTable();
@@ -68,11 +85,26 @@ namespace SIMSBDAL
 
             return dt;
         }
-
         public static DataTable queryCommandDT_StoredProc(string sqlQuery)
         {
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        public static DataTable ISAMSqueryCommandDT_StoredProc(string sqlQuery)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(ISAMSCS))
             {
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, cn))
                 {

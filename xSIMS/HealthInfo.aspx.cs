@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SIMSBDAL;
-using System.Data;
 
 public partial class HealthInfo : System.Web.UI.Page
 {
@@ -33,7 +30,7 @@ public partial class HealthInfo : System.Web.UI.Page
 
             complaintDefault();
 
-            generateReferenceNum();
+           
 
             display_IncidentSelection();
 
@@ -41,7 +38,21 @@ public partial class HealthInfo : System.Web.UI.Page
             createTempDTComplaint();
             createTempDTMedicine();
 
+
+            panComplaintMain.Visible = false;
             panMedicineContent.Enabled = false;
+
+
+
+            //Complaint Action Identifier
+            //DEFAULT VALUE: 1 = NEW RECORD
+            //VALUE: 2 = UPDATE RECORD
+
+            ViewState["COMPLAINT_ACTION"] = 1;
+
+
+            //Generation of TransactionCode
+            generateReferenceNum();
         }
 
     }
@@ -310,9 +321,11 @@ public partial class HealthInfo : System.Web.UI.Page
         txtDateComplaint.Text = dc.ToShortDateString();
         txtTimeComplaint.Text = DateTime.Now.ToShortTimeString();
 
-        TRANSACTION_CODE = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
-        lblTransCode.Text = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
+        //TRANSACTION_CODE = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
+        //lblTransCode.Text = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
+        ViewState["TRANSACTIONCODE"] = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
     }
+
     private void display_IncidentSelection()
     {
         DataTable dtTimeIncident = oHealth.GET_TIMEINCIDENT_LIST();
@@ -320,7 +333,7 @@ public partial class HealthInfo : System.Web.UI.Page
         ddTimeIncident.DataValueField = dtTimeIncident.Columns[0].ToString();
         ddTimeIncident.DataTextField = dtTimeIncident.Columns[1].ToString();
         ddTimeIncident.DataBind();
-        ddTimeIncident.Items.Insert(0, new ListItem("--N/A--"));
+        //ddTimeIncident.Items.Insert(0, new ListItem("--N/A--"));
 
 
         DataTable dtPlaceIncident = oHealth.GET_PLACEINCIDENT_LIST();
@@ -328,7 +341,7 @@ public partial class HealthInfo : System.Web.UI.Page
         ddPlaceIncident.DataValueField = dtPlaceIncident.Columns[0].ToString();
         ddPlaceIncident.DataTextField = dtPlaceIncident.Columns[1].ToString();
         ddPlaceIncident.DataBind();
-        ddPlaceIncident.Items.Insert(0, new ListItem("--N/A--"));
+        //ddPlaceIncident.Items.Insert(0, new ListItem("--N/A--"));
    }
 
     private void createTempDTComplaint()
@@ -443,12 +456,57 @@ public partial class HealthInfo : System.Web.UI.Page
     }
 
 
+
+    private void displayPatientComplaint(string _transcode)
+    {
+        DataTable dt = oHealth.GET_COMPLAINT_PATIENT_LIST(_transcode);
+
+        if (dt.Rows.Count > 0)
+        {
+            gvComplaintList.DataSource = dt;
+            gvComplaintList.DataBind();
+            panComplaintContent.Visible = true;
+            panComplaintContent.Enabled = false;
+
+            lnkAddComplaint.Visible = false;
+        }
+        else
+        {
+            gvComplaintList.DataSource = null;
+            gvComplaintList.DataBind();
+        }
+
+    }
+
+    private void displayPatientMedicine(string _transcode)
+    {
+        DataTable dt = oHealth.GET_MEDICINE_PATIENT_LIST(_transcode);
+        if (dt.Rows.Count > 0)
+        {
+
+            gvMedicineList.DataSource = dt;
+            gvMedicineList.DataBind();
+
+            panMedicineContent.Visible = true;
+            panMedicineContent.Enabled = false;
+
+            lnkAddMedicine.Visible = false;
+        }
+        else
+        {
+            gvMedicineList.DataSource = null;
+            gvMedicineList.DataBind();
+        }
+      
+        
+    }
+
+   
     
     //CRU TRANSACTION
     private void InsertRecord(string _snum, int _statcode)
     {
 
-       
             //Loop and save data entry to Health Illness_MF Category 1
             foreach (ListItem li in chkIllnessListCat1.Items)
             {
@@ -726,9 +784,8 @@ public partial class HealthInfo : System.Web.UI.Page
 
             panHealthDE.Enabled = true;
 
-            //DISPLAY COMPLAINT HISTORY
-            //08-02-2016
-            displayComplaintHistory(_studnum);
+
+          
 
             if (oHealth.GET_EXIST_HEALTH_RECORD(_studnum))
             {
@@ -758,6 +815,19 @@ public partial class HealthInfo : System.Web.UI.Page
             }
 
 
+
+            //Complaint Area
+            panComplaintMain.Visible = true;
+
+            //DISPLAY COMPLAINT HISTORY
+            //08-02-2016
+            displayComplaintHistory(_studnum);
+
+            //COMPLAINT ACTION
+            ViewState["COMPLAINT_ACTION"] = 1;
+
+            resetComplaintsFields();
+            
         }
         //MessageDialog(_studnum, 1);
     }
@@ -772,49 +842,54 @@ public partial class HealthInfo : System.Web.UI.Page
 
     protected void lnkAddComplaint_Click(object sender, EventArgs e)
     {
-        //Instantiate table 
-        DataTable dt = (DataTable)Session["tempDTComplaint"];
 
-        if (gvComplaintList.Rows.Count == 0)
-        {
-            //Add New Row
-            DataRow newRow = dt.NewRow();
-            newRow["CODE"] = ddComplaintSelection.SelectedValue.ToString();
-            newRow["DESCRIPTION"] = ddComplaintSelection.SelectedItem.ToString();
-            dt.Rows.Add(newRow);
+       
+            //Instantiate table 
+            DataTable dt = (DataTable)Session["tempDTComplaint"];
 
-           Session["tempDTComplaint"] = dt;
-
-           gvComplaintList.DataSource = dt;
-           gvComplaintList.DataBind();
-
-           panMedicineContent.Enabled = true;
-
-        }
-        else
-        {
-          //Validate if data if already exist on table
-
-            if (checkComplaintExist())
+            if (gvComplaintList.Rows.Count == 0)
             {
-                MessageDialog("Complaint already exist!", 3);
-                return;
+                //Add New Row
+                DataRow newRow = dt.NewRow();
+                newRow["CODE"] = ddComplaintSelection.SelectedValue.ToString();
+                newRow["DESCRIPTION"] = ddComplaintSelection.SelectedItem.ToString();
+                dt.Rows.Add(newRow);
+
+                Session["tempDTComplaint"] = dt;
+
+                gvComplaintList.DataSource = dt;
+                gvComplaintList.DataBind();
+
+                panMedicineContent.Enabled = true;
+
             }
             else
-            { 
+            {
+                //Validate if data if already exist on table
 
-            //ADD here
-            DataRow newRow = dt.NewRow();
-            newRow["CODE"] = ddComplaintSelection.SelectedValue.ToString();
-            newRow["DESCRIPTION"] = ddComplaintSelection.SelectedItem.ToString();
-            dt.Rows.Add(newRow);
-            Session["tempDTComplaint"] = dt;
+                if (checkComplaintExist())
+                {
+                    MessageDialog("Complaint already exist!", 3);
+                    return;
+                }
+                else
+                {
 
-            gvComplaintList.DataSource = dt;
-            gvComplaintList.DataBind();
-                
+                    //ADD here
+                    DataRow newRow = dt.NewRow();
+                    newRow["CODE"] = ddComplaintSelection.SelectedValue.ToString();
+                    newRow["DESCRIPTION"] = ddComplaintSelection.SelectedItem.ToString();
+                    dt.Rows.Add(newRow);
+                    Session["tempDTComplaint"] = dt;
+
+                    gvComplaintList.DataSource = dt;
+                    gvComplaintList.DataBind();
+
+                }
             }
-        }
+     
+
+       
           
      }
      
@@ -898,6 +973,7 @@ public partial class HealthInfo : System.Web.UI.Page
         gvComplaintList.DataBind();
         gvMedicineList.DataSource = null;
         gvMedicineList.DataBind();
+
         
         //textbox
         txtMedQuantity.Text = "";
@@ -914,21 +990,35 @@ public partial class HealthInfo : System.Web.UI.Page
         //Datatable 
         createTempDTComplaint();
         createTempDTMedicine();
-    
+        
+
+        //Clear transactionCode
+        ViewState["TRANSACTIONCODE"] = "";
+
         //Methods
         generateReferenceNum();
 
         //Visibility
         panIncident.Visible = false;
         
+
         //Access
         panMedicineContent.Enabled = false;
+        panComplaintContent.Enabled = true;
+        panMedicineContent.Enabled = true;
+
+        ViewState["COMPLAINT_ACTION"] = 1;
+
+        lnkAddComplaint.Visible = true;
+        lnkAddMedicine.Visible = true;
+
     }
 
 
     private void displayComplaintHistory(string _patientnum)
     {
         DataTable dt = oHealth.GET_COMPLAINT_HISTORY(_patientnum);
+
         if (dt.Rows.Count > 0)
         {
             gvComplaintHistory.DataSource = dt;
@@ -936,6 +1026,15 @@ public partial class HealthInfo : System.Web.UI.Page
 
             panComplaintHistory.Visible = true;
 
+
+            Session["COMPLAINT_HISTORY"] = dt;
+
+        }
+        else
+        {
+            Session["COMPLAINT_HISTORY"] = null;
+            gvComplaintHistory.DataSource = null;
+            gvComplaintHistory.DataBind();
         }
 
     }
@@ -1189,7 +1288,7 @@ public partial class HealthInfo : System.Web.UI.Page
 
     protected void lnkSaveComplaint_Click(object sender, EventArgs e)
     {
-        
+
         //Validate Inputs
         if (gvComplaintList.Rows.Count == 0 || gvMedicineList.Rows.Count == 0)
         {
@@ -1198,61 +1297,104 @@ public partial class HealthInfo : System.Web.UI.Page
         }
 
         else
-        { 
-        
-        //SAVING COMPLAINT RECORD
-
-        oHealth.INSERT_COMPLAINT_SUMMARY(lblTransCode.Text, "2016-2017", lblStudNum.Text, Convert.ToDateTime(txtDateComplaint.Text), Convert.ToDateTime(txtTimeComplaint.Text),
-                                        txtNote.Text, chkSentHome.Checked, chkSentHospital.Checked, ddTimeIncident.SelectedValue.ToString(), ddPlaceIncident.SelectedValue.ToString(),
-                                        txtPhysician.Text, txtAmount.Text, txtRemarks.Text, false, "testing User");
-
-
-
-        foreach (GridViewRow row in gvComplaintList.Rows)
         {
 
-            if (row.RowType == DataControlRowType.DataRow)
+            //SAVING COMPLAINT RECORD
+            //VALIDATE TYPE OF SAVING
+
+            if ((int)ViewState["COMPLAINT_ACTION"] == 1)
             {
-
-                string getRowCompCode = row.Cells[1].Text;
-
-
-                 oHealth.INSERT_PATIENT_COMPLAINT_DETAILS(lblTransCode.Text, getRowCompCode.ToString());
-            }
-        }
+                oHealth.INSERT_COMPLAINT_SUMMARY(ViewState["TRANSACTIONCODE"].ToString(), "2016-2017", lblStudNum.Text, Convert.ToDateTime(txtDateComplaint.Text), Convert.ToDateTime(txtTimeComplaint.Text),
+                                                txtNote.Text, chkSentHome.Checked, chkSentHospital.Checked, ddTimeIncident.SelectedValue.ToString(), ddPlaceIncident.SelectedValue.ToString(),
+                                                txtPhysician.Text, txtAmount.Text, txtRemarks.Text, false, "testing User");
 
 
-        foreach (GridViewRow row in gvMedicineList.Rows)
-        {
-            string getDataKey = row.Cells[1].Text;
 
-            if (string.IsNullOrEmpty(getDataKey) || getDataKey == "&nbsp;")
-            { 
-
-              //skip the update on medicine stock
-            }
-            else
-            {
-            if (row.RowType == DataControlRowType.DataRow)
+                foreach (GridViewRow row in gvComplaintList.Rows)
                 {
-                        int grBatchID = Convert.ToInt32(row.Cells[1].Text);
-                        int grQuantity = Convert.ToInt32(row.Cells[4].Text);
-                        string grMedCode = row.Cells[2].Text;
-                   
-                        //execute substraction on medicine stock
-                        oHealth.INSERT_PATIENT_MEDICINE_DETAILS(lblTransCode.Text, grMedCode, grQuantity, grBatchID);
-                        
-                        oHealth.UPDATE_MEDICINE_STOCK_DOWN(grBatchID, grMedCode, grQuantity);
+
+                    if (row.RowType == DataControlRowType.DataRow)
+                    {
+
+                        string getRowCompCode = row.Cells[1].Text;
+
+
+                        oHealth.INSERT_PATIENT_COMPLAINT_DETAILS(ViewState["TRANSACTIONCODE"].ToString(), getRowCompCode.ToString());
+                    }
                 }
+
+
+                //Saving Medicine Action Done
+                foreach (GridViewRow row in gvMedicineList.Rows)
+                {
+                    string getDataKey = row.Cells[1].Text;
+                    int grBatchID;
+                    int grQuantity;
+                    bool isCountable;
+
+                    if (row.RowType == DataControlRowType.DataRow)
+                    {
+
+
+                        if (string.IsNullOrEmpty(getDataKey) || getDataKey == "&nbsp;")
+                        {
+                            grBatchID = 0;
+                            grQuantity = 0;
+                            isCountable = false;
+                        }
+
+                        else
+                        {
+                            grBatchID = Convert.ToInt32(row.Cells[1].Text);
+                            grQuantity = Convert.ToInt32(row.Cells[4].Text);
+                            isCountable = true;
+                        }
+
+                        string grMedCode = row.Cells[2].Text;
+
+                        //execute substraction on medicine stock
+                        oHealth.INSERT_PATIENT_MEDICINE_DETAILS(ViewState["TRANSACTIONCODE"].ToString(), grMedCode, grQuantity, grBatchID, isCountable);
+
+
+                        if (isCountable)
+                        {
+                            oHealth.UPDATE_MEDICINE_STOCK_DOWN(grBatchID, grMedCode, grQuantity);
+                        }
+                    }
+
+                }
+
+
+                //DISPLAY Successful message
+                MessageDialog("Complaint successfully recorded", 1);
+
+                //Reset and clear all fields.
+                resetComplaintsFields();
+
+                //Reload Complaint History
+                displayComplaintHistory(lblStudNum.Text);
             }
-        }
 
-        //DISPLAY Successful message
-        MessageDialog("Complaint successfully recorded", 1);
 
-        //Reset and clear all fields.
-        resetComplaintsFields();
-        } //End of Validation
+
+            else
+            //update complaint summary
+            {
+                oHealth.UPDATE_COMPLAINT_SUMMARY(ViewState["TRANSACTIONCODE"].ToString(), Convert.ToDateTime(txtDateComplaint.Text), Convert.ToDateTime(txtTimeComplaint.Text),
+                                                   txtNote.Text, chkSentHome.Checked, chkSentHospital.Checked, ddTimeIncident.SelectedValue.ToString(), ddPlaceIncident.SelectedValue.ToString(),
+                                                   txtPhysician.Text, txtAmount.Text, txtRemarks.Text, false, "testing User");
+
+                //DISPLAY Successful message
+                MessageDialog("Complaint successfully updated.", 2);
+
+                resetComplaintsFields();
+
+                //Reload Complaint History
+                displayComplaintHistory(lblStudNum.Text);
+
+            } //End if validation of saving type.
+
+        }//End of Validation of requirements.
     }
 
 
@@ -1266,5 +1408,83 @@ public partial class HealthInfo : System.Web.UI.Page
         {
             panIncident.Visible = false;
         }
+    }
+
+
+    protected void gvComplaintHistory_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        
+        gvComplaintHistory.PageIndex = e.NewPageIndex;
+        displayComplaintHistory(lblStudNum.Text);
+
+    }
+
+    protected void lnkEdit_Click(object sender, EventArgs e)
+    {
+        
+        if (gvComplaintHistory.Rows.Count > 0)
+        {
+
+            DataTable dt = (DataTable)Session["COMPLAINT_HISTORY"];
+            DataView dv = dt.DefaultView;
+
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+
+            //ViewState["_selectedID"] = r.Cells[1].Text;
+            //lblMOT.Text = ViewState["_selectedID"].ToString();
+            ViewState["TRANSACTIONCODE"] = r.Cells[1].Text;
+
+
+            dv.RowFilter = "transCode = '" + ViewState["TRANSACTIONCODE"].ToString() + "'";
+
+            if (dv.Count > 0)
+            {
+                DataRowView drv = dv[0];
+
+                txtNote.Text = drv["notes"].ToString();
+                txtRemarks.Text = drv["remarks"].ToString();
+                txtAmount.Text = drv["amount"].ToString();
+                txtPhysician.Text = drv["physician"].ToString();
+
+                txtDateComplaint.Text = Convert.ToDateTime(drv["compDate"]).ToShortDateString();
+                txtTimeComplaint.Text = Convert.ToDateTime(drv["compTime"]).ToShortTimeString();
+
+                chkSentHome.Checked = (bool)drv["sentHome"];
+                if ((bool)drv["sentHospital"])
+                {
+                   
+                    panIncident.Visible = true;
+                }
+                else
+                {
+                    panIncident.Visible = false;
+                }
+
+                chkSentHospital.Checked = (bool)drv["sentHospital"];
+                ddPlaceIncident.SelectedValue = drv["placeIncidentCode"].ToString();
+                ddTimeIncident.SelectedValue = drv["timeIncidentCode"].ToString();
+              
+            }
+
+            //DISPLAY COMPLAINT LIST ON GRIDVIEW
+
+            displayPatientComplaint(ViewState["TRANSACTIONCODE"].ToString());
+
+            //DISPLAY MEDICINE LIST ON GRIDVIEW
+            displayPatientMedicine(ViewState["TRANSACTIONCODE"].ToString());
+
+            ViewState["COMPLAINT_ACTION"] = 2; //UPDATE
+        }
+
+        //displaySelectedSection((int)ViewState["_selectedID"]);
+
+        //panelEdit.Enabled = true;
+
+    }
+
+    protected void lnkResetComplaint_Click(object sender, EventArgs e)
+    {
+        resetComplaintsFields();
     }
 }

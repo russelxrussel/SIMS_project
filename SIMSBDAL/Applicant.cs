@@ -20,13 +20,13 @@ namespace SIMSBDAL
 
         public void newApplicant(string SY, string APPTYPECODE, string LEVELTYPECODE, string STRANDCODE, DateTime APPDOA, string APPNUM,
                                  bool WLSTATUS, bool SSICHILD, string LASTNAME, string FIRSTNAME, string MIDDLENAME,
-                                 string MI, string SUFFIX, string FULLNAME, string GENDERCODE, DateTime DOB, string POB, double AGE, bool SHORTBYJUNE, int SHORTMONTH, string TELNO,
-                                 string MOBILENO, string CONTACTPERSON, string ADDINFO, string BARANGAYCODE, string CITYCODE, string EMAIL, string REMARKS, bool Status, 
+                                 string MI, string SUFFIX, string FULLNAME, string GENDERCODE, DateTime DOB, string POB, double AGE, string AGEONJUNE, bool SHORTBYJUNE, int SHORTMONTH, string TELNO,
+                                 string MOBILENO, string CONTACTPERSON, string ADDINFO, string BARANGAYCODE, string CITYCODE, string EMAIL, string REMARKS, bool Status, bool _appbackout, 
                                  DateTime DATEENCODE, DateTime DATEUPDATE, string USERCODE,
                                 string SNUM, bool FORM138, bool BC, bool COLORED1X1, bool BROWNENVELOPE, bool GM, bool RECOMMENDATION, bool FORM137, bool NCAE, string OTHER,
                                 double ENGTOTAL, double SCITOTAL, double MATHTOTAL, double FIRSTTOTAL, double SECONDTOTAL, double THIRDTOTAL,
                                 double FOURTHTOTAL, double ENG1, double ENG2, double ENG3, double ENG4, double SCI1, double SCI2, double SCI3, double SCI4,
-                                double MATH1, double MATH2, double MATH3, double MATH4, bool LOWERENG, bool LOWERSCI, bool LOWERMATH, double FINALAVERAGE)
+                                double MATH1, double MATH2, double MATH3, double MATH4, bool LOWERENG, bool LOWERSCI, bool LOWERMATH, double FINALAVERAGE, double FINALAVERAGE2)
        
         {
             using (SqlConnection cn = new SqlConnection(CS))
@@ -59,6 +59,7 @@ namespace SIMSBDAL
                         cmd.Parameters.AddWithValue("@DOB", DOB);
                         cmd.Parameters.AddWithValue("@POB", POB);
                         cmd.Parameters.AddWithValue("@Age", AGE);
+                        cmd.Parameters.AddWithValue("@AgeOnJune", AGEONJUNE);
                         cmd.Parameters.AddWithValue("@ShortByJune", SHORTBYJUNE);
                         cmd.Parameters.AddWithValue("@ShortMonth", SHORTMONTH);
                         cmd.Parameters.AddWithValue("@TelNo", TELNO);
@@ -70,6 +71,7 @@ namespace SIMSBDAL
                         cmd.Parameters.AddWithValue("@Email", EMAIL);
                         cmd.Parameters.AddWithValue("@Remarks", REMARKS);
                         cmd.Parameters.AddWithValue("@Status", Status);
+                        cmd.Parameters.AddWithValue("@APPBACKOUT", _appbackout);
                         cmd.Parameters.AddWithValue("@DateEncode", DATEENCODE);
                         cmd.Parameters.AddWithValue("@DateUpdate", DATEUPDATE);
                         cmd.Parameters.AddWithValue("@UserCode", USERCODE);
@@ -118,6 +120,7 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@LOWERSCI", LOWERSCI);
                     cmd.Parameters.AddWithValue("@LOWERMATH", LOWERMATH);
                     cmd.Parameters.AddWithValue("@FINALAVERAGE", FINALAVERAGE);
+                    cmd.Parameters.AddWithValue("@FINALAVERAGE2", FINALAVERAGE2);
                     cmd.Parameters.AddWithValue("@DATEENCODE", DATEENCODE);
                     cmd.Parameters.AddWithValue("@DATEUPDATE", DATEUPDATE);
                     cmd.Parameters.AddWithValue("@USERCODE", USERCODE);
@@ -149,15 +152,15 @@ namespace SIMSBDAL
                                        string _entrylevelcode, string _entryleveltype,
                                        string _entryYear, string _mail1, string _mail2,
                                        string _mail3, string _bday, 
-                                       string _natCode, string _civilStatus, string _gender, string _dateEncode, string _usercode)
+                                       string _natCode, string _civilStatus, string _gender, double _prevgrade, string _dateEncode, string _usercode)
         {
             using (SqlConnection cn = new SqlConnection(ISAMSCS))
             {
                 // string strSQL = "spInsertApplicant";
                 string strSQL = "Insert Into Appl_Info_MF(appl_no,appl_date,appl_type,appl_lname,appl_fname,appl_mname, " +
-                                "entry_level_code,entry_level_type,entry_year,mail_addr1, mail_addr2, mail_addr3, bday, natl_Code, civil_stat, sex, date_time_sys,log_user_name) " +
+                                "entry_level_code,entry_level_type,entry_year,mail_addr1, mail_addr2, mail_addr3, bday, natl_Code, civil_stat, sex, final_grade, date_time_sys,log_user_name) " +
                                 "Values(@AppNo,@AppDate,@AppType,@Applname,@Appfname,@Appmname,@EntryLevelCode,@EntryLevelType, " +
-                                "@EntryYear,@Mail1,@Mail2,@Mail3,@Bday,@natCode, @civilStatus, @gender, @dateEncode, @userCode)";
+                                "@EntryYear,@Mail1,@Mail2,@Mail3,@Bday,@natCode, @civilStatus, @gender,@finalgrade, @dateEncode, @userCode)";
 
                 using (SqlCommand cmd = new SqlCommand(strSQL, cn))
                 {
@@ -178,6 +181,7 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@natCode", _natCode);
                     cmd.Parameters.AddWithValue("@civilStatus", _civilStatus);
                     cmd.Parameters.AddWithValue("@gender", _gender);
+                    cmd.Parameters.AddWithValue("@finalgrade", _prevgrade);
                     cmd.Parameters.AddWithValue("@dateEncode", _dateEncode);
                     cmd.Parameters.AddWithValue("@userCode", _usercode);
 
@@ -189,8 +193,8 @@ namespace SIMSBDAL
 
         public void updateApplicant(string APPTYPECODE, string LEVELTYPECODE, string STRANDCODE, DateTime APPDOA, string APPNUM,
                                  bool WLSTATUS, bool SSICHILD, string LASTNAME, string FIRSTNAME, string MIDDLENAME,
-                                 string MI, string SUFFIX, string FULLNAME, string GENDERCODE, DateTime DOB,string POB, double AGE, bool SHORTBYJUNE, int SHORTMONTH, string TELNO,
-                                 string MOBILENO, string CONTACTPERSON, string ADDINFO, string BARANGAYCODE, string CITYCODE, string EMAIL, string REMARKS, bool STAT,
+                                 string MI, string SUFFIX, string FULLNAME, string GENDERCODE, DateTime DOB,string POB, double AGE, string AGEONJUNE, bool SHORTBYJUNE, int SHORTMONTH, string TELNO,
+                                 string MOBILENO, string CONTACTPERSON, string ADDINFO, string BARANGAYCODE, string CITYCODE, string EMAIL, string REMARKS, bool STAT, bool _appbackout,
                                  DateTime DATEENCODE, DateTime DATEUPDATE, string USERCODE,
                                  bool FORM138, bool BC, bool COLORED1X1, bool BROWNENVELOPE, bool GM, bool RECOMMENDATION, bool FORM137, bool NCAE, string OTHER)
         {
@@ -218,6 +222,7 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@DOB", DOB);
                     cmd.Parameters.AddWithValue("@POB", POB);
                     cmd.Parameters.AddWithValue("@Age", AGE);
+                    cmd.Parameters.AddWithValue("@AgeOnJune", AGEONJUNE);
                     cmd.Parameters.AddWithValue("@ShortByJune", SHORTBYJUNE);
                     cmd.Parameters.AddWithValue("@ShortMonth", SHORTMONTH);
                     cmd.Parameters.AddWithValue("@TelNo", TELNO);
@@ -229,6 +234,7 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@Email", EMAIL);
                     cmd.Parameters.AddWithValue("@Remarks", REMARKS);
                     cmd.Parameters.AddWithValue("@Status", STAT);
+                    cmd.Parameters.AddWithValue("@APPBACKOUT", _appbackout);
                     cmd.Parameters.AddWithValue("@DateUpdate", DATEUPDATE);
                     cmd.Parameters.AddWithValue("@UserCode", USERCODE);
 
@@ -260,7 +266,7 @@ namespace SIMSBDAL
 
         public void PreviousGrade(string SNUM, double ENGTOTAL, double SCITOTAL, double MATHTOTAL, double FIRSTTOTAL, double SECONDTOTAL, double THIRDTOTAL,
                                   double FOURTHTOTAL, double ENG1, double ENG2, double ENG3, double ENG4, double SCI1, double SCI2, double SCI3, double SCI4,
-                                  double MATH1, double MATH2, double MATH3, double MATH4, bool LOWERENG, bool LOWERSCI, bool LOWERMATH, double FINALAVERAGE,
+                                  double MATH1, double MATH2, double MATH3, double MATH4, bool LOWERENG, bool LOWERSCI, bool LOWERMATH, double FINALAVERAGE, double FINALAVERAGE2,
                                   DateTime DATENCODE, DateTime DATEUPDATE, string USERCODE)
         {
             using (SqlConnection cn = new SqlConnection(CS))
@@ -293,6 +299,7 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@LOWERSCI", LOWERSCI);
                     cmd.Parameters.AddWithValue("@LOWERMATH", LOWERMATH);
                     cmd.Parameters.AddWithValue("@FINALAVERAGE", FINALAVERAGE);
+                    cmd.Parameters.AddWithValue("@FINALAVERAGE2", FINALAVERAGE2);
                     cmd.Parameters.AddWithValue("@DATEENCODE", DATENCODE);
                     cmd.Parameters.AddWithValue("@DATEUPDATE", DATEUPDATE);
                     cmd.Parameters.AddWithValue("@USERCODE", USERCODE);
@@ -310,7 +317,7 @@ namespace SIMSBDAL
 
         public void updatePreviousGrade(string SNUM, double ENGTOTAL, double SCITOTAL, double MATHTOTAL, double FIRSTTOTAL, double SECONDTOTAL, double THIRDTOTAL,
                                   double FOURTHTOTAL, double ENG1, double ENG2, double ENG3, double ENG4, double SCI1, double SCI2, double SCI3, double SCI4,
-                                  double MATH1, double MATH2, double MATH3, double MATH4, bool LOWERENG, bool LOWERSCI, bool LOWERMATH, double FINALAVERAGE,
+                                  double MATH1, double MATH2, double MATH3, double MATH4, bool LOWERENG, bool LOWERSCI, bool LOWERMATH, double FINALAVERAGE, double FINALAVERAGE2,
                                   DateTime DATEUPDATE, string USERCODE)
         {
             using (SqlConnection cn = new SqlConnection(CS))
@@ -344,6 +351,7 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@LOWERSCI", LOWERSCI);
                     cmd.Parameters.AddWithValue("@LOWERMATH", LOWERMATH);
                     cmd.Parameters.AddWithValue("@FINALAVERAGE", FINALAVERAGE);
+                    cmd.Parameters.AddWithValue("@FINALAVERAGE2", FINALAVERAGE2);
                     cmd.Parameters.AddWithValue("@DATEUPDATE", DATEUPDATE);
                     cmd.Parameters.AddWithValue("@USERCODE", USERCODE);
 
@@ -368,7 +376,6 @@ namespace SIMSBDAL
 
         public DataTable getApplicant()
         { 
-     
             DataTable dt = new DataTable();
             //string strSQL = "Select AppNum, Fullname, levelTypeCode, WLStatus, SSIChild, LevelTypeCode, GenderCode from Admission.App_Info_MF order by FirstName";
             //string strSQL = "SELECT a.AppNum, a.Fullname, a.levelTypeCode, a.WLStatus, a.SSIChild, a.LevelTypeCode, a.GenderCode, b.Remarks as statRemarks " + 
@@ -378,6 +385,14 @@ namespace SIMSBDAL
             dt = queryCommandDT_StoredProc(strSQL);
             return dt;
       
+        }
+
+        public DataSet getApplicantCountDetails()
+        {
+            DataSet ds = new DataSet();
+            string strSQL = "spCountApplicantDetails";
+            ds = queryCommandDS_StoredProc(strSQL);
+            return ds;
         }
 
         public DataTable getDetailsApplicant()
@@ -397,6 +412,104 @@ namespace SIMSBDAL
         }
 
 
+        //ISAMS SOURCE - RESERVATION LIST OLD
+        //11-5-2015
+        //modify SIMS SOURCE - RESERVATION LIST OLD
+        //04-19-2016
+        public DataTable getStudentReserveList()
+        {
+            DataTable dt = new DataTable();
+            //string strSQL = "Sims_CountReservedStudentOLD";
+            string strSQL = "spCountReserveStudent_OLD";
+            //string strSQL = "Select Count(*) from Student_MF where studtype = 'O' and statcode = 'EN'";
+            //dt = ISAMSqueryCommandDT_StoredProc(strSQL);
+            dt = queryCommandDT(strSQL);
+            return dt;
+        }
+
+        //ISAMS SOURCE - RESERVATION LIST NEW
+        //modify SIMS SOURCE - RESERVATION LIST NEW
+        //04-19-2016
+        public DataTable getStudentReserveNewList()
+        {
+            DataTable dt = new DataTable();
+            //string strSQL = "Sims_CountReservedStudentNEW";
+            //dt = ISAMSqueryCommandDT_StoredProc(strSQL);
+
+            string strSQL = "spCountReserveStudent_NEW";
+            dt = queryCommandDT(strSQL);
+            return dt;
+        }
+
+        //SIMS SOURCE - TOTAL RESERVED
+        //04-19-2016
+        public DataTable getStudentTOTALReservedList()
+        {
+            DataTable dt = new DataTable();
+            //string strSQL = "Sims_CountReservedStudentNEW";
+            //dt = ISAMSqueryCommandDT_StoredProc(strSQL);
+
+            string strSQL = "spCountTOTALReserveStudent";
+            dt = queryCommandDT(strSQL);
+            return dt;
+        }
+
+        public DataTable getORTestingList()
+        { 
+            DataTable dt = new DataTable();
+            string strSQL = "Sims_DisplayTestingOR";
+            dt = ISAMSqueryCommandDT_StoredProc(strSQL);
+            return dt;
+        }
+
+
+        //CHECKING TESTING receipt no in ISAMS
+        public bool CHECKING_OR_INPUT(string _input)
+        {
+            bool x = false;
+            using (SqlConnection cn = new SqlConnection(ISAMSCS))
+            {
+                using (SqlCommand cmd = new SqlCommand("Sims_CheckTestingOR", cn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RECEIPTNO",  _input);
+
+                    cn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        x = true;
+                    }
+                    else
+                    {
+                        x = false;
+                    }
+
+                }
+            }
+
+            return x;
+        }
+
+
+        public int getStudentTotalReservedCount()
+        {
+            int iCount = 0;
+            using (SqlConnection cn = new SqlConnection(ISAMSCS))
+            {
+                string strSQL = "Sims_CountReservedStudent";
+
+                SqlCommand cmd = new SqlCommand(strSQL, cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();
+                iCount = (int)cmd.ExecuteScalar();
+            }
+
+            return iCount;
+        }
+
     }
 
 
@@ -404,22 +517,36 @@ namespace SIMSBDAL
 
     public class ApplicantSchedule: cBase
     {
-    
-     //Inserting Appicant Schedule
-        public void InsertApplicantSchedule(string _appNum, string _orNum, string _screeningCode, string _userCode)
+        
+        //FIELDS
+        public string _OR { get; set; }
+        public int _EXAMID { get; set; }
+        public int _INTID { get; set; }
+        public int _SCHEDSTAT { get; set; }
+        public bool _ISFREE { get; set; }
+        public bool _ISPASSED { get; set; }
+
+
+        //Inserting Appicant Schedule
+        public void InsertApplicantSchedule(string _appNum, string _orNum, int _examID, int _intID, 
+                                            int _schedStat, bool _isfree, DateTime _di, string _userCode)
         {
             {
                 using (SqlConnection cn = new SqlConnection(CS))
                 {
-                    string strSQL = "INSERT INTO Admission.App_ScreeningSchedule_MF(AppNum,AppOR,ScreeningCode,UserCode) " +
-                                    "VALUES (@AppNum, @ORNum, @ScreeningCode, @UserCode)";
 
-                    using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                    using (SqlCommand cmd = new SqlCommand("spInsertApplicantSchedule", cn))
                     {
-                        cmd.Parameters.AddWithValue("@AppNum", _appNum);
-                        cmd.Parameters.AddWithValue("@ORNum", _orNum);
-                        cmd.Parameters.AddWithValue("@ScreeningCode", _screeningCode);
-                        cmd.Parameters.AddWithValue("@UserCode", _userCode);
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@APPNUM", _appNum);
+                        cmd.Parameters.AddWithValue("@OR", _orNum);
+                        cmd.Parameters.AddWithValue("@EXAMID", _examID);
+                        cmd.Parameters.AddWithValue("@INTID", _intID);
+                        cmd.Parameters.AddWithValue("@SCHEDSTAT", _schedStat);
+                        cmd.Parameters.AddWithValue("@ISFREE", _isfree);
+                        cmd.Parameters.AddWithValue("@DI", _di);
+                        cmd.Parameters.AddWithValue("@USERCODE", _userCode);
 
                         cn.Open();
 
@@ -430,15 +557,101 @@ namespace SIMSBDAL
         }
 
 
+        public void UpdateApplicantSchedule(string _appNum, string _orNum, int _examID, int _intID,
+                                            int _schedStat, bool _isfree, DateTime _du, string _userCode)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+              
+                using (SqlCommand cmd = new SqlCommand("spUpdateApplicantSchedule", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@APPNUM", _appNum);
+                    cmd.Parameters.AddWithValue("@OR", _orNum);
+                    cmd.Parameters.AddWithValue("@EXAMID", _examID);
+                    cmd.Parameters.AddWithValue("@INTID", _intID);
+                    cmd.Parameters.AddWithValue("@SCHEDSTAT", _schedStat);
+                    cmd.Parameters.AddWithValue("@ISFREE", _isfree);
+                    cmd.Parameters.AddWithValue("@DU", _du);
+                    cmd.Parameters.AddWithValue("@USERCODE", _userCode);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
-        public bool checkExistInSchedule(string _appNum, string _screeningCode)
+        
+        //Decrease available slot of scheduled by one in Screening Schedule setup
+        public void updateScreeingSetupSlot(int _id)
+        { 
+             using (SqlConnection cn = new SqlConnection(CS))
+            {
+              
+                using (SqlCommand cmd = new SqlCommand("spUpdateScreeningSetupSlot", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ID", _id);
+                     cn.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+             }
+        }
+
+        
+
+        public bool checkExistAppInSchedule(string _appNum)
         {
             bool x = false;
 
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "Select ScreeningCode, AppNum  from [Admission].[App_ScreeningSchedule_MF] where ScreeningCode = '" + _screeningCode + "' and AppNum ='" + _appNum + "'";
+                string strSQL = "Select AppNum,AppOR,ExamID,IntID,SchedStat,isfree,ispassed from [Admission].[App_ScreeningSchedule_MF] where AppNum ='" + _appNum + "'";
+
+                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                {
+                    cn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        x = true;
+                        while (dr.Read())
+                        {
+                            _OR = dr["AppOR"].ToString();
+                            _EXAMID = (int)dr["ExamID"];
+                            _INTID = (int)dr["IntID"];
+                            _SCHEDSTAT = (int)dr["SchedStat"];
+                            _ISFREE = (bool)dr["ISFREE"];
+                            _ISPASSED = (bool)dr["IsPassed"];
+                        }
+
+                    }
+
+                    else
+                    {
+                        x = false;
+                    }
+
+                    return x;
+                }
+            }
+
+        }
+
+        //check if receiptno in use
+        public bool CHECK_EXIST_OR(string _or)
+        {
+            bool x = false;
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                string strSQL = "Select AppOR from [Admission].[App_ScreeningSchedule_MF] where AppOR ='" + _or + "'";
 
                 using (SqlCommand cmd = new SqlCommand(strSQL, cn))
                 {
@@ -458,21 +671,18 @@ namespace SIMSBDAL
                     return x;
                 }
             }
-
         }
-    //Displaying List of Applicant for Scheduling
-        public DataTable getApplicantForScheduling(string _AppTypeCode, string _LevelTypeCode)
+   
+        //Displaying List of Applicant for Scheduling
+        public DataTable getApplicantForScheduling()
         {
-
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(CS))
             {
                 using (SqlCommand cmd = new SqlCommand("spDisplayApplicantForScheduling", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@AppTypeCode", _AppTypeCode);
-                    cmd.Parameters.AddWithValue("@LevelTypeCode", _LevelTypeCode);
-                    
+
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);
@@ -483,483 +693,604 @@ namespace SIMSBDAL
         }
 
 
-        public DataTable getScheduleList(string _levelType)
+    
+
+        //Display on each row inside gridview base on exam type parameter I- Interview / E-Examination
+        //Stored Procedure
+        //11-12-2015 Russel Vasquez
+        
+        
+        public DataTable getScheduleList(string _ExamType)
         {
-
-            string ExamOnly = "E";
-            string strSQL = "";
-
             DataTable dt = new DataTable();
-
-            /*Validate Level Type
-            //Nursery to Grade3 Schedule display will be Examination only
-            //While the rest Both Examination and Interview
-            //10/09/2015 as Ms. Rona Info
-            Russel Vasquez */
-
-            if (_levelType == "P1" || _levelType == "P2" || _levelType =="P3" || _levelType =="G1" || _levelType =="G2" || _levelType == "G3")
+            using (SqlConnection cn = new SqlConnection(CS))
             {
-                strSQL = "Select a.ID, a.Sdate, a.Stime, a.SDesc, b.ScreeningDesc, b.ScreeningCode " +
-                               "From Admission.ScreeningSetup_RF a " +
-                               "Inner Join Utilities.ScreeningType_RF b " +
-                               "On a.ScreeningCode = b.ScreeningCode " +
-                               "Where a.Status= '" + true + "' and a.ScreeningCode ='" + ExamOnly + "' Order by a.Sdate Desc";
-            }
+                using (SqlCommand cmd = new SqlCommand("spDisplayExamScheduleList", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ScreeningCode", _ExamType);
 
-            else
-            {
-                strSQL = "Select a.ID, a.Sdate, a.Stime, a.SDesc, b.ScreeningDesc, b.ScreeningCode " +
-                               "From Admission.ScreeningSetup_RF a " +
-                               "Inner Join Utilities.ScreeningType_RF b " +
-                               "On a.ScreeningCode = b.ScreeningCode " +
-                               "Where a.Status= '" + true + "' Order by a.Sdate Desc";
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
             }
-
-            dt = queryCommandDT(strSQL);
 
             return dt;
         }
 
 
+        //UPDATE APPLICANT STATUS TRAIL TABLE
+        public void UPDATE_ApplicantStatusTrail(string _snum, int _statusCode)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                string strSQL = "spApplicantClearSchedule";
+
+                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@APPNUM", _snum);
+                    cmd.Parameters.AddWithValue("@SCHEDSTAT", _statusCode);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+        }
+
+ 
 
     }// End of Scheduling Class
 
 
-
-    public class Health : cBase
+    public class   ApplicantTesting : cBase
     {
+        //Fields
+        public string _APPNUM { get; set; }
+        public string _FULLNAME { get; set; }
+        public string _LEVELTYPECODE { get; set; }
+        public DateTime _DOB { get; set; }
+        public double _PREVGRADE { get; set; }
+        public string _EXAMSCHED { get; set; }
+        public string _INTSCHED { get; set; }
+        public string _AGEBYJUNE { get; set; }
+        public string _GENDERCODE { get; set; }
+        public bool _RETESTSTATUS { get; set; }
 
-        public DataTable getApplicantClinicList()
+        //FOR SAP STUDENT NAME COMBINATION
+        public string _SAP_FN_FORMAT { get; set; }
+
+        public string _LEVELCATCODE { get; set; }
+        //For Retrieval of Testing Record
+        public string _SCORES { get; set; }
+        public string _RESULT { get; set; }
+
+        //SUMMARY Retrieval
+        public string _PREV { get; set; }
+        public string _PREVRESULT { get; set; }
+        public string _ASSESSMENT { get; set; }
+        public string _OVERALL { get; set; }
+        public string _OBSERVATION { get; set; }
+        public string _STATCODE { get; set; }
+
+
+        //RESULT SLIP Retrieval 02/16/2016
+        public DateTime _DATECREATED { get; set; }
+        public string _ADDRESSTO { get; set; }
+        public DateTime _DATEEXPIRED { get; set; }
+        public int _RESULTTYPE { get; set; }
+
+
+        //--------------------------------------------------------
+
+        //Display Applicant Information Briefly
+        //11-23-2015
+        public bool displayApplicantInfo(string _appnum)
         {
-
-            DataTable dt = new DataTable();
-            //string strSQL = "Select AppNum, Fullname, levelTypeCode, WLStatus, SSIChild, LevelTypeCode, GenderCode from Admission.App_Info_MF order by FirstName";
-            //string strSQL = "SELECT a.AppNum, a.Fullname, a.levelTypeCode, a.WLStatus, a.SSIChild, a.LevelTypeCode, a.GenderCode, b.Remarks as statRemarks " + 
-            //                "From Admission.App_Info_MF a INNER JOIN xSystem.ApplicantStatusTrail_RF b " +
-            //                "ON a.StatCode = b.statCode Order by Fullname";
-            string strSQL = "sp_ApplicantClinicList";
-            dt = queryCommandDT_StoredProc(strSQL);
-            return dt;
-
-        }
-
-        public DataTable getHealthIllness()
-        {
-            DataTable dt = new DataTable();
-            string strSQL = "SELECT * from xSystem.Health_Illness_RF Order by Arr";
-            dt = queryCommandDT(strSQL);
-            return dt;
-        }
-
-        public DataTable getMedicineMayGiven()
-        {
-            DataTable dt = new DataTable();
-            string strSQL = "SELECT * from xSystem.Health_GivenMed_RF Order by Arr";
-            dt = queryCommandDT(strSQL);
-            return dt;
-        }
-
-
-        //public DataTable retrieveHealthIllness()
-        //{
-        //    DataTable dt = new DataTable();
-           
-        //    string strSQL = "Select SIF.SNUM, SIF.IllnessCode, SIF.IsChecked, XSIF.IllnessDesc, XSIF.CatID " +
-        //                    "From Health.Stud_Illness_MF SIF " +
-        //                    "INNER JOIN xSystem.Health_Illness_RF XSIF " +
-        //                    "ON SIF.IllnessCode = XSIF.IllnessCode";
-            
-        //    dt = queryCommandDT(strSQL);
-        //    return dt;
-        //}
-
-        //public DataTable retrieveHealthMedicine()
-        //{
-        //    DataTable dt = new DataTable();
-
-        //    string strSQL = "Select SGM.SNUM, SGM.MedCode, SGM.IsChecked, XSGM.MedDesc " +
-        //                    "From Health.Stud_GivenMed_MF SGM " + 
-        //                    "INNER JOIN xSystem.Health_GivenMed_RF XSGM " +
-        //                    "ON SGM.MedCode = XSGM.MedCode ";
-        //    dt = queryCommandDT(strSQL);
-        //    return dt;
-        //}
-
-
-        public DataSet retrieveHealth(string _SNUM)
-        {
-            DataSet ds = new DataSet();
-            using (SqlConnection cn = new SqlConnection(CS))
-            {
-                using (SqlCommand cmd = new SqlCommand("spRetrieveHealth", cn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@SNUM", _SNUM);
-                 
-
-                    SqlDataAdapter da = new SqlDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(ds);
-                }
-            }
-
-            return ds;
-            
-        }
-
-        
-        public bool ExsistRecord(string _SNUM)
-        {
-
             bool x = false;
 
-
-            using (SqlConnection cn = new SqlConnection(CS))
+          using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "Select snum from Health.Stud_Health_Info_MF where SNUM= '" + _SNUM + "'";
-
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spDisplayApplicantInfoForTesting", cn))
                 {
-                    cn.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
 
-                    if (dr.HasRows)
+                    cn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
                     {
                         x = true;
-                    }
+                        while (rdr.Read())
+                        {
+                            _APPNUM = rdr["AppNum"].ToString();
+                            _FULLNAME = rdr["Fullname"].ToString();
+                            _SAP_FN_FORMAT = rdr["StandardFullName"].ToString();
+                            _LEVELCATCODE = rdr["LevelCatCode"].ToString();
+                            _LEVELTYPECODE = rdr["LevelTypeCode"].ToString();
+                            _DOB = (DateTime) rdr["DOB"];
 
+                            if (Convert.ToDouble(rdr["FinalAverage"]) == 0 || string.IsNullOrEmpty(rdr["FinalAverage"].ToString()))
+                            //if(Convert.ToDouble(rdr["FinalAverage"]) == 0 || rdr["FinalAverage"])
+                            {
+                                _PREVGRADE = (double)rdr["FinalAverage2"];
+                            }
+                            else
+                            {
+                                _PREVGRADE = (double)rdr["FinalAverage"];
+                            }
+
+                            //THIS CONDITION WILL IDENTIFY HOW TESTING 
+                            //PROCEDURE WILL ACT.
+                            //RUSSEL VASQUEZ 01/29/2016
+                            if (Convert.ToInt32(rdr["SchedStat"].ToString()) == 4)
+                            {
+                                _RETESTSTATUS = true;
+                            }
+                            else
+                            {
+                                _RETESTSTATUS = false;
+                            }
+
+
+                            _EXAMSCHED = rdr["ExamSched"].ToString();
+                            _INTSCHED = rdr["IntSched"].ToString();
+                            _AGEBYJUNE = rdr["AgeOnJune"].ToString();
+                            _GENDERCODE = rdr["GenderCode"].ToString();
+                        }   
+
+                    }
                     else
                     {
                         x = false;
                     }
-
-                    return x;
                 }
             }
+
+          return x;
+        }
+
+        /*Retrieve Record
+         * Changes Entry if applicant not yet and need for re-evaluating Passed
+         * 11/27/2015
+         * Russel Vasquez
+        */
+
+        public bool ExistAppTest(string _appnum)
+        {
+            bool x = false;
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("spCheckAppTest", cn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+
+                    cn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    if (rdr.HasRows)
+                    {
+
+                        while (rdr.Read())
+                        {
+                            _SCORES = rdr["Scores"].ToString();
+                        
+                        }
+
+                        x = true;
+                    }
+                    else
+                    {
+                        x = false;
+                    }
+                }
+            }
+
+            return x;
+        }
+
+        //Will check if applicant already exist on student information
+        public bool CHECKAPPEXISTSTUDENT(string _appnum)
+        {  
+            bool x = false;
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("spCheckApplicantInRegistrationExist", cn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+
+                    cn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    if (rdr.HasRows)
+                    {
+
+                        x = true;
+                    }
+                    else
+                    {
+                        x = false;
+                    }
+                }
+            }
+
+            return x;
         
         }
 
-
-
-        //Transaction
-
-        public void insertIllness(string _snum, string _illnesscode, bool _ischecked)
+        //Check applicant record on result slip table
+        public bool CHECK_APPRESULTSLIP(string _appnum)
         {
+            bool x = false;
+
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "INSERT INTO Health.Stud_Illness_MF(SNUM,IllnessCode,IsChecked) " +
-                                "VALUES(@SNUM, @IllnessCode, @IsChecked)";
-
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spCheckAppResultSlip", cn))
                 {
-                    try
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+
+                    cn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    if (rdr.HasRows)
                     {
-                        cmd.Parameters.AddWithValue("@SNUM", _snum);
-                        cmd.Parameters.AddWithValue("@IllnessCode", _illnesscode);
-                        cmd.Parameters.AddWithValue("@IsChecked", _ischecked);
 
-                        cn.Open();
+                        while (rdr.Read())
+                        {
+                            _DATECREATED = Convert.ToDateTime(rdr["DateCreated"]);
+                            _ADDRESSTO = rdr["AddressTo"].ToString();
+                            _DATEEXPIRED = Convert.ToDateTime(rdr["DateExpired"]);
+                            _RESULTTYPE = Convert.ToInt16(rdr["ResultType"]);
+                        }
 
-                        cmd.ExecuteNonQuery();
+                        x = true;
                     }
-                    catch { }//Message HERE 
+                    else
+                    {
+                        x = false;
+                    }
                 }
             }
 
-
-
+            return x;
         }
-        public void insertMedicine(string _snum, string _medCode, bool _ischecked)
+
+
+
+        public void UPDATE_APPLICANT_SCHEDULE_STATUS(string _appnum)
         {
+
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "INSERT INTO Health.Stud_GivenMed_MF(SNUM,MedCode,IsChecked) " +
-                                "VALUES(@SNUM, @MedCode, @IsChecked)";
-
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spUpdateApplicantScheduleStatusToDisable", cn))
                 {
-                    try
-                    {
-                        cmd.Parameters.AddWithValue("@SNUM", _snum);
-                        cmd.Parameters.AddWithValue("@MedCode", _medCode);
-                        cmd.Parameters.AddWithValue("@IsChecked", _ischecked);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
 
-                        cn.Open();
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch { }//Message HERE 
+        //DISPLAY testing list Components
+        public DataTable displayTestingList(string _levelType)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("spDisplayApplicantTestingList", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@LEVELTYPE", _levelType);
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
                 }
             }
 
-        }
-      
-        public void insertHealthRecord(string _snum, bool _iscongenital, string _congenital,
-                                        bool _ishospitalized, string _dateHospitalized, string _reasonhospitalized,
-                                        bool _isminormajor, string _minormajor, string _dateminormajor,
-                                        bool _isaccident, string _accident, string _dateaccident, string _parentRemarks,
-                                        string _nurserRemarks, string _healthStatusCode, int _AppstatusCode)
-        {
-
-            SqlDateTime sdtHospitalizedNull;
-            SqlDateTime sdtMinorMajorDateNull;
-            SqlDateTime sdtSeriousAccidentDateNull;
-
-            
-            using (SqlConnection cn = new SqlConnection(CS))
-            {
-                string strSQL = "INSERT INTO Health.Stud_Health_Info_MF(SNUM,IsCongenital,CongenitalDesc,IsHospitalized,DateHospitalized,ReasonHospitalized, " +
-                                "IsMinorMajor, MinorMajorDesc, MinorMajorDate,IsSeriousAccident,SeriousAccidentDesc,SeriousAccidentDate,ParentRemarks,NurseRemarks,HealthStatusCode) " +
-                                "VALUES(@SNUM, @IsCongenital, @CongenitalDesc,@IsHospitalized,@DateHospitalized,@ReasonHospitalized, " +
-                                "@IsMinorMajor,@MinorMajorDesc,@MinorMajorDate,@IsSeriousAccident,@SeriousAccidentDesc,@SeriousAccidentDate, " +
-                                "@ParentRemarks,@NurseRemarks,@HealthStatusCode)";
-
-
-
-                cn.Open();
-                SqlTransaction sqlTrans = cn.BeginTransaction();
-                    try
-                    {
-                        SqlCommand cmd = new SqlCommand(strSQL, cn, sqlTrans);
-                        //cmd.Parameters.Add(new SqlParameter("@DateHospitalized", SqlDbType.DateTime));
-                        cmd.Parameters.AddWithValue("@SNUM", _snum);
-                        cmd.Parameters.AddWithValue("@IsCongenital", _iscongenital);
-                        cmd.Parameters.AddWithValue("@CongenitalDesc", _congenital);
-                        cmd.Parameters.AddWithValue("@IsHospitalized", _ishospitalized);
-                        //cmd.Parameters.AddWithValue("@DateHospitalized", _dateHospitalized);
-                        cmd.Parameters.Add(new SqlParameter("@DateHospitalized", _dateHospitalized));
-                        sdtHospitalizedNull = SqlDateTime.Null;
-                        if (_dateHospitalized == "")
-                        {
-                            cmd.Parameters["@DateHospitalized"].Value = sdtHospitalizedNull;
-                        }
-                        else
-                        {
-                            cmd.Parameters["@DateHospitalized"].Value = DateTime.Parse(_dateHospitalized);
-                        }
-   
-                        cmd.Parameters.AddWithValue("@ReasonHospitalized", _reasonhospitalized);
-                        cmd.Parameters.AddWithValue("@IsMinorMajor", _isminormajor);
-                        cmd.Parameters.AddWithValue("@MinorMajorDesc", _minormajor);
-                       // cmd.Parameters.AddWithValue("@MinorMajorDate", _dateminormajor);
-                        cmd.Parameters.Add(new SqlParameter("@MinorMajorDate", _dateminormajor));
-                        sdtMinorMajorDateNull = SqlDateTime.Null;
-                        if (_dateminormajor == "")
-                        {
-                            cmd.Parameters["@MinorMajorDate"].Value = sdtMinorMajorDateNull;
-                        }
-                        else
-                        {
-                            cmd.Parameters["@MinorMajorDate"].Value = DateTime.Parse(_dateminormajor);
-                        }
-
-
-                        cmd.Parameters.AddWithValue("@IsSeriousAccident", _isaccident);
-                        cmd.Parameters.AddWithValue("@SeriousAccidentDesc", _accident);
-                       // cmd.Parameters.AddWithValue("@SeriousAccidentDate", _dateaccident);
-                        cmd.Parameters.Add(new SqlParameter("@SeriousAccidentDate", _dateaccident));
-                        sdtSeriousAccidentDateNull = SqlDateTime.Null;
-                        if (_dateaccident == "")
-                        {
-                            cmd.Parameters["@SeriousAccidentDate"].Value = sdtSeriousAccidentDateNull;
-                        }
-                        else
-                        {
-                            cmd.Parameters["@SeriousAccidentDate"].Value = DateTime.Parse(_dateaccident);
-                        }
-
-                        cmd.Parameters.AddWithValue("@ParentRemarks", _parentRemarks);
-                        cmd.Parameters.AddWithValue("@NurseRemarks", _nurserRemarks);
-                        cmd.Parameters.AddWithValue("@HealthStatusCode", _healthStatusCode);
-                        
-
-
-                   
-
-                        cmd.ExecuteNonQuery();
-
-                        //Another table interaction
-                        string strSQLUpdateAppTrails = "UPDATE Admission.App_Trail_TF SET statCode=@statusCode " +
-                                               "WHERE AppNum=@snum";
-                        
-                        cmd = new SqlCommand(strSQLUpdateAppTrails,cn, sqlTrans);
-                        cmd.Parameters.AddWithValue("@snum", _snum);
-                        cmd.Parameters.AddWithValue("@statusCode", _AppstatusCode);
-                        cmd.ExecuteNonQuery();
-
-                        sqlTrans.Commit();
-
-                    }
-
-                    catch
-                    {
-                    //Don't Continue the transaction of Saving
-                    sqlTrans.Rollback();
-                    }
-
-            }
-        }
-
-
-
-
+            return dt;
      
+        }
 
-        public void updateIllness(string _snum, string _illnesscode, bool _isChecked)
+        //RETRIEVE SCORES OF APPLICANT
+        public bool RetrieveTestingRecord(string _appnum, string _ttcode)
         {
+            bool x = false;
+
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "UPDATE Health.Stud_Illness_MF SET IsChecked=@isChecked " +
-                                "WHERE SNUM=@snum and IllnessCode=@IllnessCode ";
-
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spRetrieveTestResult", cn))
                 {
-                    cmd.Parameters.AddWithValue("@snum", _snum);
-                    cmd.Parameters.AddWithValue("@IllnessCode", _illnesscode);
-                    cmd.Parameters.AddWithValue("@isChecked", _isChecked);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@TTCODE", _ttcode);
+
+                    cn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    if (rdr.HasRows)
+                    {
+                        x = true;
+
+                        while (rdr.Read())
+                        {
+                            _SCORES = rdr["Scores"].ToString();
+                            _RESULT = rdr["Result"].ToString();
+
+                            _PREV = rdr["PREV"].ToString();
+                            _PREVRESULT = rdr["PREVRESULT"].ToString();
+                             _ASSESSMENT = rdr["ASSESSMENTRESULT"].ToString();
+                            _OVERALL = rdr["OVERALL"].ToString();
+                            _OBSERVATION = rdr["OBSERVATION"].ToString();
+                            _STATCODE = rdr["STATCODE"].ToString();
+                        }
+
+                      
+                    }
+
+                }
+            }
+
+            return x;
+            
+
+        }
+        
+        //DISPLAY LIST OF APPLICANT THAT PASSED 
+        public DataTable DISPLAY_APPLICANTPASSED()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT APPNUM, Fullname, LeveltypeCode FROM vr_ListPassedApp order by Name", cn))
+                {
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        //Display List of Applicant That passed with Parameter
+        public DataTable DISPLAY_APPLICANTPASSED(string _levelType)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT APPNUM, Fullname, LeveltypeCode FROM vr_ListPassedApp where LevelTypeCode=@LEVELTYPE order by Name",cn))
+                {
+                    cmd.Parameters.AddWithValue("@LEVELTYPE", _levelType);
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        public DataTable DISPLAY_APPLICANTFAILED()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT APPNUM, Fullname, LeveltypeCode FROM vr_ListFailedApp order by Name", cn))
+                {
+                    //cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+        //Display List of Applicant That passed with Parameter
+        public DataTable DISPLAY_APPLICANTFAILED(string _levelType)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT APPNUM, Fullname, LeveltypeCode FROM vr_ListFailedApp where LevelTypeCode=@LEVELTYPE order by Name", cn))
+                {
+                    cmd.Parameters.AddWithValue("@LEVELTYPE", _levelType);
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+
+        /* TRANSACTION AREA */
+
+        //INSERT APPLICANT TEST RESULT
+
+        public void INSERTRESULT(string _appnum, string _ttcode, double _scores, double _result, bool _retest, string _usercode)
+        {
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("spInsertApplicantTestResult", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@TTCODE", _ttcode);
+                    cmd.Parameters.AddWithValue("@SCORES", _scores);
+                    cmd.Parameters.AddWithValue("@RESULT", _result);
+                    cmd.Parameters.AddWithValue("@RETEST", _retest);
+                    cmd.Parameters.AddWithValue("@USERCODE", _usercode);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        public void INSERTSUMMARYRESULT(string _appnum, double _prev, double _prevresult, double _assessmentresult,
+                                        double _overall, string _observation, string _statcode, bool _retest, string _usercode)
+
+        {
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("spInsertApplicantTestSummary", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@PREV",_prev);
+                    cmd.Parameters.AddWithValue("@PREVRESULT",_prevresult);
+                    cmd.Parameters.AddWithValue("@ASSESSMENTRESULT", _assessmentresult);
+                    cmd.Parameters.AddWithValue("@OVERALL", _overall);
+                    cmd.Parameters.AddWithValue("@OBSERVATION", _observation);
+                    cmd.Parameters.AddWithValue("@STATCODE", _statcode);
+                    cmd.Parameters.AddWithValue("@RETEST", _retest);
+                    cmd.Parameters.AddWithValue("@USERCODE", _usercode);
 
                     cn.Open();
 
                     cmd.ExecuteNonQuery();
                 }
             }
-
         
         }
 
-        public void updateMedicineGiven(string _snum, string _medCode, bool _isChecked)
+        //INSERT INTO Result Slip Table 02-16-2016
+        public void INSERT_RESULTSLIP(string _appnum, DateTime _dateCreated, string _addressTo, DateTime _dateExpired, int _resultType, string _userId)
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "UPDATE Health.Stud_GivenMed_MF SET IsChecked=@isChecked " +
-                                "WHERE SNUM=@snum and MedCode=@MedCode";
 
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spInsertApplicantResultSlip", cn))
                 {
-                    cmd.Parameters.AddWithValue("@snum", _snum);
-                    cmd.Parameters.AddWithValue("@MedCode", _medCode);
-                    cmd.Parameters.AddWithValue("@isChecked", _isChecked);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@DATECREATED", _dateCreated);
+                    cmd.Parameters.AddWithValue("@ADDRESSTO", _addressTo);
+                    cmd.Parameters.AddWithValue("@DATEEXPIRED", _dateExpired);
+                    cmd.Parameters.AddWithValue("@RESULTTYPE", _resultType);
+                    cmd.Parameters.AddWithValue("@USERID", _userId);
 
                     cn.Open();
 
                     cmd.ExecuteNonQuery();
+
                 }
             }
-
         }
 
+        //UPDATE APPLICANT TEST RESULT
 
-        public void updateHealthDetails(string _snum, bool _iscongenital, string _congenital,
-                                        bool _ishospitalized, string _dateHospitalized, string _reasonhospitalized,
-                                        bool _isminormajor, string _minormajor, string _dateminormajor,
-                                        bool _isaccident, string _accident, string _dateaccident, string _parentRemarks,
-                                        string _nurserRemarks, string _healthStatusCode)
+        public void UPDATERESULT(string _appnum, string _ttcode, double _scores, double _result, string _usercode)
         {
-
-            SqlDateTime sdtHospitalizedNull;
-            SqlDateTime sdtMinorMajorDateNull;
-            SqlDateTime sdtSeriousAccidentDateNull;
-
-
-            using (SqlConnection cn = new SqlConnection(CS))
+         using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "UPDATE Health.Stud_Health_Info_MF SET " +
-                                "IsCongenital=@IsCongenital,CongenitalDesc=@CongenitalDesc, " +
-                                "IsHospitalized=@IsHospitalized,DateHospitalized=@DateHospitalized,ReasonHospitalized=@ReasonHospitalized, " +
-                                "IsMinorMajor=@IsMinorMajor, MinorMajorDesc=@MinorMajorDesc, MinorMajorDate=@MinorMajorDate, " +
-                                "IsSeriousAccident=@IsSeriousAccident,SeriousAccidentDesc=@SeriousAccidentDesc,SeriousAccidentDate=@SeriousAccidentDate, " +
-                                "ParentRemarks=@ParentRemarks,NurseRemarks=@NurseRemarks,HealthStatusCode=@HealthStatusCode " +
-                                "Where SNUM=@SNUM";
 
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spUpdateApplicantTestResult", cn))
                 {
-                    //try
-                    //{
-                    //cmd.Parameters.Add(new SqlParameter("@DateHospitalized", SqlDbType.DateTime));
-                    cmd.Parameters.AddWithValue("@SNUM", _snum);
-                    cmd.Parameters.AddWithValue("@IsCongenital", _iscongenital);
-                    cmd.Parameters.AddWithValue("@CongenitalDesc", _congenital);
-                    cmd.Parameters.AddWithValue("@IsHospitalized", _ishospitalized);
-                    //cmd.Parameters.AddWithValue("@DateHospitalized", _dateHospitalized);
-                    cmd.Parameters.Add(new SqlParameter("@DateHospitalized", _dateHospitalized));
-                    sdtHospitalizedNull = SqlDateTime.Null;
-                    if (_dateHospitalized == "")
-                    {
-                        cmd.Parameters["@DateHospitalized"].Value = sdtHospitalizedNull;
-                    }
-                    else
-                    {
-                        cmd.Parameters["@DateHospitalized"].Value = DateTime.Parse(_dateHospitalized);
-                    }
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@ReasonHospitalized", _reasonhospitalized);
-                    cmd.Parameters.AddWithValue("@IsMinorMajor", _isminormajor);
-                    cmd.Parameters.AddWithValue("@MinorMajorDesc", _minormajor);
-                    // cmd.Parameters.AddWithValue("@MinorMajorDate", _dateminormajor);
-                    cmd.Parameters.Add(new SqlParameter("@MinorMajorDate", _dateminormajor));
-                    sdtMinorMajorDateNull = SqlDateTime.Null;
-                    if (_dateminormajor == "")
-                    {
-                        cmd.Parameters["@MinorMajorDate"].Value = sdtMinorMajorDateNull;
-                    }
-                    else
-                    {
-                        cmd.Parameters["@MinorMajorDate"].Value = DateTime.Parse(_dateminormajor);
-                    }
-
-
-                    cmd.Parameters.AddWithValue("@IsSeriousAccident", _isaccident);
-                    cmd.Parameters.AddWithValue("@SeriousAccidentDesc", _accident);
-                    // cmd.Parameters.AddWithValue("@SeriousAccidentDate", _dateaccident);
-                    cmd.Parameters.Add(new SqlParameter("@SeriousAccidentDate", _dateaccident));
-                    sdtSeriousAccidentDateNull = SqlDateTime.Null;
-                    if (_dateaccident == "")
-                    {
-                        cmd.Parameters["@SeriousAccidentDate"].Value = sdtSeriousAccidentDateNull;
-                    }
-                    else
-                    {
-                        cmd.Parameters["@SeriousAccidentDate"].Value = DateTime.Parse(_dateaccident);
-                    }
-
-                    cmd.Parameters.AddWithValue("@ParentRemarks", _parentRemarks);
-                    cmd.Parameters.AddWithValue("@NurseRemarks", _nurserRemarks);
-                    cmd.Parameters.AddWithValue("@HealthStatusCode", _healthStatusCode);
-
-
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@TTCODE", _ttcode);
+                    cmd.Parameters.AddWithValue("@SCORES", _scores);
+                    cmd.Parameters.AddWithValue("@RESULT", _result);
+                    cmd.Parameters.AddWithValue("@USERCODE", _usercode);
 
                     cn.Open();
 
                     cmd.ExecuteNonQuery();
-                    //}
-                    //catch { }//Message HERE 
+
                 }
             }
         }
 
-
-
-        public void updateApplicantStatusTrail(string _snum, int _statusCode)
+        public void UPDATESUMMARYRESULT(string _appnum, double _prev, double _prevresult, double _assessmentresult,
+                                        double _overall, string _observation, string _statcode, string _usercode)
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                string strSQL = "UPDATE Admission.App_Trail_TF SET statCode=@statusCode " +
-                                "WHERE AppNum=@snum";
-
-                using (SqlCommand cmd = new SqlCommand(strSQL, cn))
+                using (SqlCommand cmd = new SqlCommand("spUpdateApplicantTestSummary", cn))
                 {
-                    cmd.Parameters.AddWithValue("@snum", _snum);
-                    cmd.Parameters.AddWithValue("@statusCode", _statusCode);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@PREV", _prev);
+                    cmd.Parameters.AddWithValue("@PREVRESULT", _prevresult);
+                    cmd.Parameters.AddWithValue("@ASSESSMENTRESULT", _assessmentresult);
+                    cmd.Parameters.AddWithValue("@OVERALL", _overall);
+                    cmd.Parameters.AddWithValue("@OBSERVATION", _observation);
+                    cmd.Parameters.AddWithValue("@STATCODE", _statcode);
+                    cmd.Parameters.AddWithValue("@USERCODE", _usercode);
 
                     cn.Open();
 
                     cmd.ExecuteNonQuery();
+
                 }
             }
-
         }
+        
+        //UPDATE APPLICANT RESULT SLIP
+        public void UPDATE_RESULTSLIP(string _appnum, DateTime _dateCreated, string _addressTo, DateTime _dateExpired, int _resultType, string _userId)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
 
-    }//End of Health Class
+                using (SqlCommand cmd = new SqlCommand("spUpdateApplicantResultSlip", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@APPNUM", _appnum);
+                    cmd.Parameters.AddWithValue("@DATECREATED", _dateCreated);
+                    cmd.Parameters.AddWithValue("@ADDRESSTO", _addressTo);
+                    cmd.Parameters.AddWithValue("@DATEEXPIRED", _dateExpired);
+                    cmd.Parameters.AddWithValue("@RESULTTYPE", _resultType);
+                    cmd.Parameters.AddWithValue("@USERID", _userId);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        //
+
+    }//END OF CLASS
+
+    //CLASS of HEALTH APPLICANT
+
+  
 
 
 

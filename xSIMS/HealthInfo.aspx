@@ -212,6 +212,8 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
     <HeaderTemplate>Complaint</HeaderTemplate>
     <ContentTemplate>
 
+    <asp:Panel runat="server" ID="panComplaintMain">
+
      <div id="dComplaintContainer">
     
     <div id="dComplaintLeft">
@@ -236,14 +238,17 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
        
         </table>
       <hr />
+      
         <table width="100px">
+        <asp:Panel runat="server" ID="panComplaintContent">
+       
         <tr><td>Complaint:</td><td><asp:DropDownList runat="server" ID="ddComplaintSelection" CssClass="dropdown_ver_default"></asp:DropDownList></td>
         <td><asp:LinkButton runat="server" ID="lnkAddComplaint" CssClass="link_sliding_lightBlue" 
                 onclick="lnkAddComplaint_Click">SELECT</asp:LinkButton></td>
         </tr>
         <tr>
         <td colspan="2"> 
-        <asp:Panel runat="server" ID="panComplaintContent">
+       
         <div id="dComplaintGrid">
         <asp:GridView runat="server" ID="gvComplaintList"
                 CssClass="mGrid"
@@ -261,10 +266,11 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
         </asp:GridView>
         <hr />
         </div> 
-        </asp:Panel>
+
         </td>
         </tr>
-    
+     </asp:Panel>
+     
      <asp:Panel runat="server" ID="panMedicineContent">
 
       <tr><td>Meds/Action:</td><td><asp:DropDownList runat="server" ID="ddMedicineSelection" CssClass="dropdown_ver_default"></asp:DropDownList></td>
@@ -329,9 +335,17 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
         </div>
   <br />
     <asp:Label runat="server" ID="lblTransCode" Visible="False"></asp:Label>
-     <asp:LinkButton runat="server" ID="lnkSaveComplaint" CssClass="link_sliding_lightGreen"
-             Text="UPDATE" onclick="lnkSaveComplaint_Click"></asp:LinkButton> 
-              
+    <table width="50%">
+    <tr>
+    <td> <asp:LinkButton runat="server" ID="lnkSaveComplaint" CssClass="link_sliding_lightGreen"
+             Text="UPDATE" onclick="lnkSaveComplaint_Click"></asp:LinkButton> </td>
+          <td>
+           <asp:LinkButton runat="server" ID="lnkResetComplaint" CssClass="link_sliding_lightGreen"
+             Text="RESET" onclick="lnkResetComplaint_Click"></asp:LinkButton> 
+          </td>
+    </tr>
+    
+    </table>          
    </div>
 
 
@@ -376,11 +390,12 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
   <div id="dComplaintHistoryLabel">Complaint History</div>
   <asp:GridView runat="server" ID="gvComplaintHistory" CssClass="mGrid" 
           EnableModelValidation="True" AutoGenerateColumns="False" 
-          AllowPaging="True" PageSize="7">
+          AllowPaging="True" PageSize="7"
+          onpageindexchanging="gvComplaintHistory_PageIndexChanging">
       <Columns>
           <asp:TemplateField>
           <ItemTemplate>
-          <asp:LinkButton runat="server" ID="lnkEdit" Text="Edit" CssClass="link_sliding_lightBlue"></asp:LinkButton>
+          <asp:LinkButton runat="server" ID="lnkEdit" Text="Edit" CssClass="link_sliding_lightBlue" OnClick="lnkEdit_Click"></asp:LinkButton>
           </ItemTemplate>
           </asp:TemplateField>  
           
@@ -391,8 +406,14 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
                    <asp:BoundField DataField="compDate" HeaderText="Date" ReadOnly="True" DataFormatString="{0:dd/MM/yyyy}" />
           <asp:BoundField DataField="complaintDesc" HeaderText="Complaint" 
               ReadOnly="True" />
- 
+          
+          <asp:TemplateField>
+          <ItemTemplate>
+           <asp:LinkButton runat="server" ID="lnkRemove" Text="Remove" CssClass="link_sliding_red"></asp:LinkButton>
+          </ItemTemplate>
+          </asp:TemplateField>
       </Columns>
+      <PagerStyle CssClass="pgr" />
   </asp:GridView>
   </div>
  </asp:Panel>
@@ -404,7 +425,7 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
      </div>
 
   
-  
+  </asp:Panel>
 
             
     </ContentTemplate>
