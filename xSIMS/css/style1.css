@@ -1,0 +1,400 @@
+﻿
+
+
+#formlayout
+{
+    /*
+    float: left;
+    margin-left: 40px;
+    margin-top: 110px;
+    width: 860px;*/
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    
+    margin: 0 auto;
+    width: 860px; /*height: 768px;
+    height: 600px;*/
+}
+
+
+
+#formlayout fieldset
+{
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 560px;
+}
+
+#formlayout #seml
+{
+    float: left;
+    width: 70%;
+    
+} 
+
+#formlayout #seml label
+{
+    display: inline-block;
+    float: left;
+    width:100px;
+    text-align:right;
+    padding-right:10px;
+} 
+
+
+
+#formlayout #seml select
+{
+    display: inline-block;
+    float: left;
+    background-color: #719DDB;
+    width: 120px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    color: #FFFFFF;
+} 
+
+#formlayout #assno fieldset
+{
+    float: left;
+    width: 25%;
+    background-color: #66FFFF;
+    height: 43px;
+} 
+
+#formlayout #assno label
+{
+    display: inline-block;
+    float: left;
+    width:70px;
+    text-align:right;
+    padding-right:10px;
+    padding-top:5px;
+} 
+
+#formlayout #assno #autono
+{
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    font-variant: normal;
+    color: #009933;
+    width: 126px;
+}
+
+#formlayout fieldset #oinfo label
+{
+    display: inline-block;
+    float: left;
+    width: 160px;
+    text-align: right;
+    padding-right: 5px;
+    font-style: italic;
+    color: #808080;
+    height: 11px;
+    margin-top:5px;
+  
+} 
+
+#formlayout fieldset #oinfo input
+{
+    display: inline-block;
+    float: left;
+    width: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-small;
+    vertical-align: middle;
+} 
+
+#formlayout #studinfo 
+{
+    float: left;
+    width: 65%;
+}
+
+#ass_summ
+{
+    float: right;
+    width: 28%;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    border: 5px solid #0099FF;
+    color: #24528E;
+    font-weight: bold;
+    background-color: #FFFFFF;
+}
+
+#ass_summ #add_hd
+{
+    color: #FFFFCC;
+    height: 30px;
+    background-color: #99CCFF;
+    -webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.sumhd
+{
+    text-align: center;
+    vertical-align: middle;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    font-weight: bold;
+    position: relative;
+    color: #FFFFFF;
+}
+
+#formlayout #ass_summ label
+{
+    display: block;
+    width: 100px;
+   
+   float: left;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-right: 10px;
+     margin-left: 5px;
+    font-weight: bold;
+    color: #719DDB;
+    
+}
+
+
+
+.tf
+{
+    
+    float: right;
+    width: 80px;
+    height:15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: right;
+}
+
+#formlayout fieldset label
+{
+    display: block;
+    width: 166px;
+    float: left;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+ .cpHeader
+        {
+            color: white;
+            background-color: #719DDB;
+            font: bold 11px auto "Trebuchet MS", Verdana;
+            font-size: 12px;
+            cursor: pointer;
+            width:550px;
+            height:18px;
+            padding: 4px;           
+        }
+        .cpBody
+        {
+            background-color: #DCE4F9;
+            font: normal 11px auto Verdana, Arial;
+            border: 1px gray;               
+            width:550px;
+            padding: 4px;
+            padding-top: 7px;
+        }      
+
+#formlayout fieldset #studno
+{
+        display: block;
+        width: 100px;
+        float: left;
+        margin-bottom: 10px;
+        margin-top: 0px;
+}
+
+#formlayout fieldset #studname
+{
+        display: block;
+        width: 380px;
+        float: left;
+        margin-bottom: 10px;
+        margin-top: 0px;
+        margin-left:5px;
+}
+
+
+
+ #formlayout fieldset input
+{
+    display: block;
+    width: 350px;
+    float: left;
+    margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+#formlayout #studinfo .autocomplete_completionListElement
+{
+    margin: 0px !important;
+    background-color: #FFFFFF;
+    color: windowtext;
+    border: buttonshadow;
+    border-width: 1px;
+    border-style: solid;
+    cursor: 'default';
+    overflow: auto;
+    height: 200px;
+    font-family: Tahoma;
+    font-size: small;
+    text-align: left;
+    list-style-type: none;
+}
+/* AutoComplete highlighted item */
+.autocomplete_highlightedListItem
+   {
+    background-color : #ffff99 ;
+    color : black ;
+    padding : 1px ;
+    }
+
+    /* AutoComplete item */
+.autocomplete_listItem
+{
+    background-color: window;
+    color: windowtext;
+    padding: 1px;
+}
+
+
+
+
+#MOP
+{
+    margin-left: 166px;
+    margin-top: 5px;
+    float: left;
+}
+
+#formlayout #MOP label
+{
+    display: block;
+    width: 166px;
+    float: left;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+ #formlayout #MOP input
+{
+    display: block;
+    width: 320px;
+    float: left;
+   
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+ 
+#formlayout #dtls 
+{
+    float: left;
+    width: 72%;
+} 
+ 
+ #formlayout #details
+{
+    margin-left: 10px;
+    margin-top: 5px;
+    
+}
+
+    .mGrid {   
+        width: 100%;   
+        background-color: #fff;   
+        margin: 5px 0 10px 0;   
+        border: solid 1px #525252;   
+        border-collapse:collapse;   
+    }  
+    .mGrid td {   
+        padding: 2px;   
+        border: solid 1px #c1c1c1;   
+        color: #717171;   
+    }  
+    .mGrid th {   
+        padding: 4px 2px;   
+        color: #fff;   
+        background: #424242 url(grd_head.png) repeat-x top;   
+        border-left: solid 1px #525252;   
+        font-size: 0.9em;   
+    }  
+    .mGrid .alt { background: #fcfcfc url(grd_alt.png) repeat-x top; }  
+    .mGrid .pgr { background: #424242 url(grd_pgr.png) repeat-x top; }  
+    .mGrid .pgr table { margin: 5px 0; }  
+    .mGrid .pgr td {   
+        border-width: 0;   
+        padding: 0 6px;   
+        border-left: solid 1px #666;   
+        font-weight: bold;   
+        color: #fff;   
+        line-height: 12px;   
+     }     
+    .mGrid .pgr a { color: #666; text-decoration: none; }  
+    .mGrid .pgr a:hover { color: #000; text-decoration: none; }  
+ 
+ 
+ #formlayout #lookup .autocomplete_completionListElement
+{
+    margin : 0px!important ;
+    background-color : inherit ;
+    color : windowtext ;
+    border : buttonshadow ;
+    border-width : 1px ;
+    border-style : solid ;
+    cursor : 'default' ;
+    overflow : auto ;
+    height : 200px ;
+    font-family : Tahoma ;
+    font-size : small ;
+    text-align : left ;
+    list-style-type : none ;
+    }
+/* AutoComplete highlighted item */
+#formlayout #lookup .autocomplete_highlightedListItem
+   {
+    background-color : #ffff99 ;
+    color : black ;
+    padding : 1px ;
+    }
+
+    /* AutoComplete item */
+#formlayout #lookup .autocomplete_listItem
+    {
+    background-color : window ;
+    color : windowtext ;
+    padding : 1px ;
+   }
+ 
+ 
+ .clear  { clear:both ;
+    line-height:10px ;
+}   
+ 
+    br
+    {
+        clear: left;
+    }
+    

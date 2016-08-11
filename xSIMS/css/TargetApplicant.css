@@ -1,0 +1,19 @@
+﻿#entry
+{
+        
+float: left;    
+width: 300px;
+background-color: #d2d2d2;
+font-family:Calibri;
+font-size: 11pt;
+}
+
+
+
+#dataContent
+{
+  position:relative;
+  
+  width: 650px;  
+  float:right;
+}

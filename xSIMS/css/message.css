@@ -1,0 +1,180 @@
+﻿#xMessage
+{
+width: 400px;
+height: 130px;
+display:none;
+
+}
+
+#title
+{
+    height: 30px;
+    width: 400px;
+    text-align: left;
+   
+ /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fcfff4+0,dfe5d7+40,b3bead+100;Wax+3D+%233 */
+background: rgb(252,255,244); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 ); /* IE6-9 */
+
+}
+
+#msgIconLeft
+{
+    width: 100px;
+    position: relative;
+    float: left;
+    text-align: center;
+}
+
+#msgTextRight
+{
+    height: 100px;
+    position: relative;
+    float: right;
+}
+
+#up
+{
+padding-top: 5px;
+width: 300px;
+height: 70px; 
+text-align: left;   
+}
+
+
+#below
+{
+width: 300px;
+height: 23px;
+position:relative;
+vertical-align: middle;  
+text-align: center; 
+padding-top: 2px;
+}
+
+#OK
+{
+    font-family: verdana, calibri, arial;
+    font-size: 12px;
+    font-weight: bold;
+    float:inherit;
+    background-color: #666666;
+    color: #FFFFFF;
+    
+}
+
+.imageClass
+{
+width: 100px;
+height: 100px;    
+}
+
+.label
+{
+    font-family: Verdana, Calibri;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+.labelTitle
+{
+    font-family: Calibri;
+    font-size: 12pt;
+    vertical-align: middle;
+    position:relative;
+    left: 10px;
+    top: 3px;
+}
+
+.imgTitle
+{
+  vertical-align: middle;    
+  position:relative;
+  left: 5px;
+  top: 3px;
+}
+
+
+/* This is for Confirmation button */
+
+ .modalBackground
+{
+    background-color: black;
+    filter: alpha(opacity=90);
+    opacity: 0.8;
+}
+    
+    .modalPopup
+{
+    border: 2px solid #CC0000;
+    background-color: #FFFFFF;
+    width: 400px;
+    height: 150px;
+}
+    
+    .confirmLabelMessage
+{
+    font-family: Verdana, Calibri;
+    font-size: 12px;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: left;
+    color: #000000;
+    margin-left: 10px;
+}
+    
+    #titleConfirm
+{
+    height: 30px;
+    width: 400px;
+    text-align: left;
+   
+ /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fcfff4+0,dfe5d7+40,b3bead+100;Wax+3D+%233 */
+background: rgb(252,255,244); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 ); /* IE6-9 */
+
+}
+
+.buttonConfirm
+{
+    border-radius: 5px;
+    width: 75px;
+    height: 25px; /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fcfff4+0,dfe5d7+40,b3bead+100;Wax+3D+%233 */
+    background: rgb(252,255,244); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+    font-weight: bold;
+    font-family: verdana;
+    font-size: 14px;
+    margin-left: 10px;
+    
+}   
+
+.buttonConfirm_NO
+{
+    border-radius: 5px;
+    width: 75px;
+    height: 25px; 
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#febbbb+0,fe9090+45,ff5c5c+100;Red+3D+%231 */
+    background: rgb(254,187,187); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(254,187,187,1) 0%, rgba(254,144,144,1) 45%, rgba(255,92,92,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(254,187,187,1) 0%,rgba(254,144,144,1) 45%,rgba(255,92,92,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+    font-weight: bold;
+    font-family: verdana;
+    font-size: 14px;
+    margin-left: 10px;
+    
+}   

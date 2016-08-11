@@ -1,0 +1,213 @@
+﻿body
+{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d0e4f7+0,73b1e7+24,539fe1+62,87bcea+100 */
+background: rgb(208,228,247); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(208,228,247,1) 0%, rgba(115,177,231,1) 24%, rgba(83,159,225,1) 62%, rgba(135,188,234,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(208,228,247,1)), color-stop(24%,rgba(115,177,231,1)), color-stop(62%,rgba(83,159,225,1)), color-stop(100%,rgba(135,188,234,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(83,159,225,1) 62%,rgba(135,188,234,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(83,159,225,1) 62%,rgba(135,188,234,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(83,159,225,1) 62%,rgba(135,188,234,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(83,159,225,1) 62%,rgba(135,188,234,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#mainContainer
+{
+    margin: 0 auto;
+    width: 1000px; /*height: 768px;
+    height: 600px;*/
+}
+
+
+#topContent
+{
+    height: 70px;
+    width: 1000px;
+    margin-top: 2px;
+    
+}
+
+#leftTop
+{
+    margin-top:3px;
+    width: 300px;
+    height: 50px;
+    float: left;
+    font-family:  calibri;
+    font-size: 13px;
+}
+
+#middleTop
+{
+width: 300px;
+    height: 50px; 
+float:left; 
+font-family:  calibri;
+font-size: 13px; 
+}
+
+#rightTop
+{
+width: 400px;   
+    height: 50px;   
+float:left;  
+font-family:  calibri;
+font-size: 13px;
+}
+
+#navContent
+{
+    height: 26px;
+    width: 995px;
+    padding-top: 2px;
+    padding-left: 5px;
+    
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0f3fa+0,d8f0fc+50,b8e2f6+51,b6dffd+100;Shape+2+Style */
+background: rgb(224,243,250); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(224,243,250,1) 0%, rgba(216,240,252,1) 50%, rgba(184,226,246,1) 51%, rgba(182,223,253,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(224,243,250,1)), color-stop(50%,rgba(216,240,252,1)), color-stop(51%,rgba(184,226,246,1)), color-stop(100%,rgba(182,223,253,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(224,243,250,1) 0%,rgba(216,240,252,1) 50%,rgba(184,226,246,1) 51%,rgba(182,223,253,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(224,243,250,1) 0%,rgba(216,240,252,1) 50%,rgba(184,226,246,1) 51%,rgba(182,223,253,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(224,243,250,1) 0%,rgba(216,240,252,1) 50%,rgba(184,226,246,1) 51%,rgba(182,223,253,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(224,243,250,1) 0%,rgba(216,240,252,1) 50%,rgba(184,226,246,1) 51%,rgba(182,223,253,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0f3fa', endColorstr='#b6dffd',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#Content
+{
+    background-color: #f5f5ef;
+    font-family: calibri;
+    font-size: 12px;
+}
+
+
+
+/*Use this style to hide gender column in each gridview */
+.hideColumn
+{
+  display:none;    
+}      
+        
+
+/* This is for Global Message Notification
+#xMessage
+{
+padding: 4px 0px 4px 4px;
+width: 300px;
+height: 200px;
+display: none;  
+}
+
+
+ */
+ 
+
+
+
+/*TOOL TIPS 
+RUSSEL VASQUEZ
+03/03/2016
+*/
+
+    /* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+.inputSearch
+{
+    width: 200px;
+    box-sizing: border-box;
+    border: 2px solid #C0C0C0;
+    border-radius: 6px;
+    font-size: 13px;
+    background-color: white;
+    background-image: url('../images/design_new/searchText.png');
+    background-position: 5px 2px;
+    background-repeat: no-repeat;
+    padding: 6px 10px 5px 35px;
+    text-transform: uppercase;
+    font-family: Arial;
+}
+
+.inputCalendar
+{
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: white;
+    background-image: url('../images/textIcon/calendar.png');
+    background-position: 2px center;
+    background-repeat: no-repeat;
+    padding: 2px 4px 1px 2px;
+    text-transform: uppercase;
+    font-family: Calibri;
+    text-align: center;
+    width: 110px;
+    font-weight: bold;
+}
+
+.inputTime
+{
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: white;
+    background-image: url('../images/textIcon/time.png');
+    background-position: 2px center;
+    background-repeat: no-repeat;
+    padding: 2px 4px 1px 2px;
+    text-transform: uppercase;
+    font-family: Calibri;
+    text-align: center;
+    width: 110px;
+    font-weight: bold;
+}
+
+

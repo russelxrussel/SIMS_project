@@ -1,0 +1,63 @@
+﻿.calendarTextBox
+{ 
+
+width: 100px;     
+font-family: Verdana, Calibri; 
+font-size: 11px; 
+text-align: center;
+height: 15px;
+ 
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+
+.text_box-border:double 5px #000000;
+-moz-border-radius-topleft: 5px;
+ -moz-border-radius-topright:5px; 
+-moz-border-radius-bottomleft:5px;
+-moz-border-radius-bottomright:5px; 
+-webkit-border-top-left-radius:5px;
+-webkit-border-top-right-radius:5px; 
+-webkit-border-bottom-left-radius:5px;
+-webkit-border-bottom-right-radius:5px;
+border-top-left-radius:5px;
+border-top-right-radius:5px; 
+border-bottom-left-radius:5px;
+
+}
+
+
+/*For Grades */
+
+.textBoxStyle_Grades
+{
+width: 50px;
+font-family:Verdana,Calibri, Arial;
+font-size: 12px; 
+height: 16px;
+text-align: center;
+
+border-top-left-radius:5px;
+border-top-right-radius:5px; 
+border-bottom-left-radius:5px;    
+}
+
+
+.textBoxStyle
+{ 
+ width: 105px;
+ font-family: Verdana, Calibri; 
+ font-size: 12px; 
+ text-indent: 2px;
+ 
+
+border-top-left-radius:5px;
+border-top-right-radius:5px; 
+border-bottom-left-radius:5px;
+}

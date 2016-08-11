@@ -1,0 +1,278 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="SIMSMaster.master.cs" Inherits="SIMSMaster" %>
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+        <link href="css/Master.css" rel="stylesheet" type="text/css" />
+        <link href="css/ControlsStyle.css" rel="stylesheet" type="text/css" />
+        <link href="css/UserControlsStyle.css" rel="stylesheet" type="text/css" />
+        <link href="css/message.css" rel="stylesheet" type="text/css" />
+        <link href="css/jqueryCSS.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery-ui_.css" rel="stylesheet" type="text/css" />
+        <link href="css/autocomplete.css" rel="stylesheet" type="text/css" /> 
+        <link href="css/gridviewStyle/gview.css" rel="stylesheet" type="text/css" />
+        <link href="css/tabcontainerStyle/tabContainer_Style.css" rel="stylesheet" type="text/css" />
+
+        <script src="jscripts/jquery-1.11.3.js" type="text/javascript"></script>
+        <script src="jscripts/blockUI.js" type="text/javascript"></script>
+        <script src="jscripts/message.js" type="text/javascript"></script>
+        <script src="jscripts/jquery-ui.js" type="text/javascript"></script>
+
+    <title>Statefields - School Integrated Management System</title>
+
+    <%--Idle--%>
+    <script type="text/javascript">
+        var idle = true;
+        var idleSeconds = 0;
+        var idleSecondsMax = 5;
+
+        function window.onload() {
+            window.setInterval("DetectIdle()", 1000);
+        }
+
+        function DetectIdle() {
+            if (idle) {
+                if (idleSeconds > idleSecondsMax) {
+                    alert(idleSeconds);
+                    window.clearInterval(idle);
+                    IdleReset();
+                }
+            }
+            else {
+                idle = true;
+            }
+            idleSeconds++;
+        }
+
+        function IdleReset() {
+            idleSeconds = 0;
+            idle = false;
+        }
+
+        function document.onmousemove() {
+            IdleReset();
+        }
+
+        function document.onkeypress() {
+            IdleReset();
+        }
+
+
+    </script>
+
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    <!-- Place Style and script here -->
+
+
+
+    </asp:ContentPlaceHolder>
+
+    <style type="text/css">
+        .labelData
+        {
+            Font-Weight: bold;
+            color: #424242;
+            Margin-Left: 10px;
+            
+        }
+    </style>
+</head>
+
+<body onload="BodyOnLoad()">
+
+    <form id="simsForm" runat="server">
+<%--    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>--%>
+    
+        <asp:ToolkitScriptManager ID="ToolkitScriptManagerMAIN" runat="server">
+        </asp:ToolkitScriptManager>
+        <div>
+
+        
+         <%-- SESSION TIMEOUT NOTIFICATION--%>
+  <script type="text/javascript" language="javascript">
+
+      //Set timeouts for when the warning message
+      //should be displayed, and what should happen 
+      //when the session actually expires.
+      function BodyOnLoad() {
+          setTimeout('ShowSessionTimeoutWarning()', '<%=iWarningTimeoutInMilliseconds%>');
+          setTimeout('ShowSessionExpiredNotification()', '<%=iSessionTimeoutInMilliseconds%>');
+      }
+
+      //Notify the user that his session is ABOUT to expire.
+      //Do so by making our warning div tag visible.
+      function ShowSessionTimeoutWarning() {
+          var divSessionTimeoutWarning =
+                document.getElementById('<%=divSessionTimeoutWarning.ClientID%>');
+
+          divSessionTimeoutWarning.style.display = 'inline';
+      }
+
+      //Notify the user that his session HAS expired.
+      function ShowSessionExpiredNotification() {
+          var divSessionTimeoutWarning =
+                document.getElementById('<%=divSessionTimeoutWarning.ClientID%>');
+
+          //Send the user to a new page.
+          window.location = '<%#sTargetURLForSessionTimeout%>';
+
+          //To tell the user that his session has expired, WITHOUT redirecting, 
+          //remove the above line, and uncomment this section:
+          ////Re-use the existing label, but change the text.
+          //var lblSessionWarning = document.getElementById('<%=lblSessionWarning.ClientID%>');
+          //lblSessionWarning.innerText = 'Your session has expired. You are SOL.';
+          ////Hide button.
+          //var btnContinueWorking = document.getElementById('<%=btnContinueWorking.ClientID%>');
+          //btnContinueWorking.style.display = 'none';
+      }
+
+      function ResetClientSideSessionTimers() {
+          var divSessionTimeoutWarning =
+                document.getElementById('<%=divSessionTimeoutWarning.ClientID%>');
+          divSessionTimeoutWarning.style.display = 'none';
+
+          //Reset timers so we can warn the user the NEXT time the session is about to expire.
+          setTimeout('ShowSessionTimeoutWarning()', '<%=iWarningTimeoutInMilliseconds%>');
+          setTimeout('ShowSessionExpiredNotification()', '<%=iSessionTimeoutInMilliseconds%>');
+      }
+    </script>
+
+    
+           <%--In a real application, use a CSSClass and set these 
+                 display properties in a CSS file, not inline.--%>
+                 <div id="divSessionTimeoutWarning" runat="server" 
+                  style="position: fixed; left: 250px; top: 100px; 
+                         background-color: Red; border-style: solid">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+
+
+                    <asp:Label ID="lblSessionWarning" runat="server" 
+                       Text="Warning. Your server session is about to expire due to inactivity."> </asp:Label>
+                    <br />
+
+                    <asp:Button ID="btnContinueWorking" runat="server" Text="Continue Working" 
+                       OnClientClick="ResetClientSideSessionTimers()" 
+                       OnClick="btnContinueWorking_Click" />
+                
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+  
+        
+        <!--Content Design Here -->
+        <div id="mainContainer">
+
+           
+        <div id="navContent">
+        <asp:Menu ID="userMenu" runat="server"
+            DynamicHorizontalOffset="2" Font-Names="Calibri" Font-Size="13px" Font-Bold="true" 
+            ForeColor="#333333" Orientation="Horizontal" StaticSubMenuIndent="10px" 
+                Width="1000px" ItemWrap="True" Height="27" Enabled="True">
+            <DynamicHoverStyle  ForeColor="Red" BorderStyle="Solid" />
+            <DynamicMenuItemStyle HorizontalPadding="5px" 
+                VerticalPadding="2px" BorderStyle="Solid" BorderWidth="1px" />
+            <DynamicMenuStyle BackColor="#E3EAEB" />
+            <DynamicSelectedStyle BackColor="#1C5E55" />
+         
+        </asp:Menu>
+          
+     </div>
+
+        <div id="topContent">
+                <div id="leftTop">
+                <asp:UpdatePanel ID="upUser" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <table width="0px">
+                        <tr>
+                            <td>
+                                <img src="images/iconLabel/calendar.png" />
+                            </td>
+                            <td>
+                                <b>
+                                    <asp:Label ID="lblDate" runat="server" CssClass="labelData"></asp:Label></b>
+                            </td>
+                        </tr>
+                 <%--       <tr>
+                            <td>
+                                <img src="images/iconLabel/sy.png" />
+                            </td>
+                            <td>
+                                <b>
+                                    <asp:Label ID="lblSY" runat="server" CssClass="labelData"></asp:Label></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="images/iconLabel/userid.png" />
+                            </td>
+                            <td>
+                                <b>
+                                    <asp:Label ID="lblUserId" runat="server" CssClass="labelData"></asp:Label></b>
+                            </td>
+                        </tr>--%>
+                        <tr>
+                            <td>
+                                <img src="images/iconLabel/name.png" />
+                            </td>
+                            <td>
+                                <b>
+                                    <asp:Label ID="lblUserName" runat="server" CssClass="labelData"></asp:Label></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <asp:LinkButton ID="lnkLogOut" runat="server" OnClick="lnkLogOut_Click" CausesValidation="False">Logout</asp:LinkButton>
+                            </td>
+                        </tr>
+                    </table>
+
+                </ContentTemplate>
+                </asp:UpdatePanel>
+                </div>
+
+                <div id="middleTop">
+               
+          
+
+                </div>
+
+                <div id="rightTop">
+                
+                </div>
+
+           </div>
+
+
+        <div id="Content">
+
+        <div>
+             
+          <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+  
+         </asp:ContentPlaceHolder>
+
+        </div>
+        </div>
+       
+        </div> <!--End of Main Container -->
+        
+
+
+</div>
+     
+    </form>
+</body>
+</html>

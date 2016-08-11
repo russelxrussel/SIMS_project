@@ -1,0 +1,199 @@
+﻿
+#dMain
+{
+height: 500px;
+padding-top: 5px;
+padding-left: 5px;
+     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fcfff4+0,dfe5d7+40,b3bead+100;Wax+3D+%233 */
+background: rgb(252,255,244); /* Old browsers */
+background: -moz-linear-gradient(45deg,  rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+     
+}
+
+
+#dLeft
+{
+    font-family: calibri;
+    font-size: 11px;
+    position: relative;
+    float: left;
+}
+
+
+
+#dLeft2
+{
+    float: left;
+    position: relative;
+    width:  300px;
+
+}
+
+#dBriefInfo
+{
+    font-family: calibri;
+    font-size: 10pt;
+    width: 280px;
+    background-color: #99FF99;
+}
+
+#dBriefInfo #dStudInfoTitle
+{
+    background-color: #006600;
+    font-family: calibri;
+    font-size: medium;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+#dBriefInfo #dPics
+{
+padding-top: 3px;
+float: left;
+width: 120px;
+}
+
+#dBriefInfo #dInfo2
+{
+padding-top: 3px;
+height:110px; 
+}
+
+
+
+#dTabPanel
+{
+    float: left;
+    position: relative;
+    left: 5px;
+
+}
+
+#dHealthDetails
+{
+    font-family: calibri;
+    font-size: 10pt;
+}
+
+
+
+#illCat1, #illCat2, #MedicineGiven
+{
+    font-family: calibri;
+    font-weight: bold; 
+    font-size: 9pt;
+}
+
+#illCat1
+{
+   
+    float: left;
+    position: relative;
+    
+}
+
+#illCat2
+{
+    float: left;
+    position: relative;
+
+}
+
+
+.accHeaderClass
+{
+    height: 20px;
+    background-image: url('../images/Nav/right.png');
+    background-repeat:no-repeat;
+    background-position: left;
+    font-family: calibri;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #3399FF;
+    text-indent: 20px;
+    text-align: left;
+    cursor: pointer;
+
+}
+
+.accHeaderSelectedClass
+{
+    /*width: 500px;*/
+    height: 20px;
+    background-image: url('../images/Nav/down.png');
+    background-repeat: no-repeat;
+    background-position: left; 
+    font-family: calibri;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333333;
+    text-indent: 20px;
+    text-align: left;
+    cursor: pointer;
+}
+
+
+.dd
+{
+    font-family: calibri;
+    font-size: 10pt;
+    color: #FF0000;
+    font-weight: bolder;
+}
+
+.img-circle
+{
+border-radius: 50%;    
+}
+
+
+#dComplaintContainer
+{
+    width: 680px;
+    font-size: 12px;
+    margin-top: 5px;
+    height: 400px;
+    font-family: calibri;
+    font-weight: bold;
+  
+}
+
+ #dComplaintLeft
+{
+    width:360px;
+    float:left;
+    position:relative;
+    
+}
+ #dComplaintRight
+{
+width: 310px;
+float:right;
+position:relative;
+padding-right: 5px;    
+}
+
+#dComplaintHistory
+{
+    border: thin solid #C0C0C0;
+}
+#dComplaintHistoryLabel, #dIncidentLabel
+{
+    background: #618685;
+    font-family: "Helvetica Neue" , Arial, Sans-Serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#dIncident
+{
+
+}

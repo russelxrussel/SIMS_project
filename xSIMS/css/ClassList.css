@@ -1,0 +1,189 @@
+﻿
+#divFormMenu
+{
+height: 30px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+42,cccccc+100 */
+background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(238,238,238,1) 42%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+
+
+.FormMessage
+{
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #CC0000;
+    text-transform: uppercase;
+    text-align: left;
+    text-indent: 4px;
+    position: relative;
+    float:right;
+}
+
+.schedTextSchedule
+{
+    font-family: Calibri;
+    font-size: 13px;
+    text-transform: uppercase;
+    width: 200px;
+    text-indent: 2px;
+}
+
+
+#divTop
+{
+    font-family: Calibri;
+    font-size: 13px;
+    width: 1000px;
+    height: 95px;
+    padding-top: 5px;
+    
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e2e2e2+0,d1d1d1+13,d1d1d1+13,dbdbdb+50,fefefe+100 */
+background: rgb(226,226,226); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(226,226,226,1) 0%, rgba(209,209,209,1) 13%, rgba(209,209,209,1) 13%, rgba(219,219,219,1) 50%, rgba(254,254,254,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(209,209,209,1) 13%,rgba(209,209,209,1) 13%,rgba(219,219,219,1) 50%,rgba(254,254,254,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(226,226,226,1) 0%,rgba(209,209,209,1) 13%,rgba(209,209,209,1) 13%,rgba(219,219,219,1) 50%,rgba(254,254,254,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+
+}
+
+
+
+
+#divTop #dInput
+{
+    width: 320px;
+    float: left;
+}
+
+#divTop #dInfo
+{
+    width: 320px;
+    position:relative;
+    float: left;
+    
+}
+
+
+
+#divGutter
+{
+    height: 10px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+42,cccccc+100 */
+background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(238,238,238,1) 42%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+
+
+#divSelection
+{
+width: 1000px; 
+height: 500px;
+       /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f3f3f3+38,ededed+55,ffffff+100;White+Gloss+%232 */
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(243,243,243,1) 38%, rgba(237,237,237,1) 55%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 38%,rgba(237,237,237,1) 55%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 38%,rgba(237,237,237,1) 55%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+}
+
+#divSelection #divSource
+{
+    width: 420px;
+    float: left;
+    padding-top: 15px;
+    padding-left: 5px;
+
+}
+
+#divSelection #divTransfer
+{
+  width: 100px;
+  float: left;
+  padding-top: 50px;
+  padding-left: 10px;
+        
+}
+
+#divSelection #divDestination
+{
+    width: 420px;
+    padding-top: 15px;
+    padding-left: 5px;
+    position: relative;
+    float: left;
+    left: 30px; 
+}
+
+/*Class */
+
+.checkBoxListStyle
+ {
+          font-size: 14px;
+          font-family:Calibri;  
+         
+ }
+ 
+ input[type="checkbox"]
+{
+    height: 14px;
+    width: 14px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+
+#divGpopUpBG
+{
+width: 650px;
+height: 400px;
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0f3fa+0,d8f0fc+22,b8e2f6+83,b6dffd+100 */
+background: rgb(224,243,250); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(224,243,250,1) 0%, rgba(216,240,252,1) 22%, rgba(184,226,246,1) 83%, rgba(182,223,253,1) 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(224,243,250,1) 0%,rgba(216,240,252,1) 22%,rgba(184,226,246,1) 83%,rgba(182,223,253,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  rgba(224,243,250,1) 0%,rgba(216,240,252,1) 22%,rgba(184,226,246,1) 83%,rgba(182,223,253,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0f3fa', endColorstr='#b6dffd',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+ 
+}
+
+#divGpopUpTitleBar
+{
+
+height: 30px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+42,cccccc+100 */
+background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(238,238,238,1) 42%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */    
+}
+
+#divGpopUpClose
+{
+  position:relative;
+  float:right;  
+  padding-top: 2px;
+  padding-right:4px;
+}
+
+#divGpopipFooter
+{
+height: 10px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+42,cccccc+100 */
+background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(238,238,238,1) 42%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(238,238,238,1) 42%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}

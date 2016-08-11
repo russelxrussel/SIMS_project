@@ -1,0 +1,477 @@
+﻿
+#mainAdmssionDash
+{
+width: 1000px;
+height: 300px;  
+}
+
+#leftAdmDash
+{
+width: 490px;
+height: 300px;  
+float: left;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
+background: rgb(254,252,234); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(254,252,234,1) 0%, rgba(241,218,54,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(254,252,234,1)), color-stop(100%,rgba(241,218,54,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+.appStatLabel
+{
+    font-family: 'Arial Black';
+    color: #808080;
+    top: 10px;
+    left: 10px;
+    position: relative;
+    opacity: 0.7;
+    font-size: 25px;
+}
+
+
+.totalAppCount
+{
+    font-family: 'Arial Black';
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.8;
+
+    color: #FFFFFF;
+    top: -3px;
+    margin-right: 10px;
+    float: right;
+    font-size: 65px;
+}
+
+.TotalReservedCount
+{
+   font-family: 'Arial Black';
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.8;
+
+    color: #FFFFFF;
+    top: -3px;
+    margin-right: 10px;
+    float: right;
+    font-size: 48px;
+}
+
+.countAppMale
+{
+    color: #FFFFFF;
+    font-size: 45px;
+    /*
+    float: left;
+    left: 50px;
+    */
+    top: -10px;
+    position:relative;
+    text-align:center;
+
+
+}
+
+.countAppFemale
+{
+    color: #FFFFFF;
+    font-size: 45px;
+    /*
+    float: left; */
+    top: -10px;
+    position: relative;
+    text-align: center;
+}
+
+.countAppMale, .countAppFemale
+{
+    font-family: 'Arial Black';
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.8; 
+   }
+
+#leftAdmRow1
+{
+    width: 490px;
+    height: 195px;
+    background-image: url('../images/dashb/appStat.png');
+    background-repeat: no-repeat;
+    background-position: 350px 75px;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-bottom-color: #999966;
+}
+
+
+#dAppStatCount
+{   
+    font-family: Calibri;
+    height: 150px;
+    position: relative;
+    top: 50px;
+    left: 10px;
+}
+
+
+
+
+#leftAdmRow2
+{
+    width: 490px;
+    height: 100px;
+}
+
+#leftAdmCol1
+{
+    width: 240px;
+    height: 100px;
+    float: left;
+    /*
+    background-image: url('../images/dashb/maleGender.png');
+    background-repeat: no-repeat;
+    background-position: 160px 10px;
+    background-color: #669999;
+    */
+    border-right-style: solid;
+    border-right-width: 5px;
+    border-right-color: #999966;
+}
+
+#leftAdmCol2
+{
+    width: 245px;
+    height: 100px;
+    text-align: center;
+    float: right;
+
+     /*
+    background-image: url('../images/dashb/femaleGender.png');
+    background-repeat: no-repeat;
+    background-position: 160px 10px;
+    background-color: #669999;
+    */
+}
+
+#leftCol2Row1
+{
+    width: 245px;
+    height:50px;
+    background-image: url('../images/dashb/maleGender.png');
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+
+}
+
+#leftCol2Row2
+{
+    width: 245px;
+    height: 50px;
+    background-image: url('../images/dashb/femaleGender.png');
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+}
+
+
+/* Right Admission Dashboard */
+#rightAdmDash
+{
+width: 490px;
+height: 300px;
+float: right;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fceabb+0,fccd4d+50,f8b500+51,fbdf93+100;Orange+3D+%235 */
+background: rgb(252,234,187); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(252,234,187,1) 0%, rgba(252,205,77,1) 50%, rgba(248,181,0,1) 51%, rgba(251,223,147,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(252,234,187,1)), color-stop(50%,rgba(252,205,77,1)), color-stop(51%,rgba(248,181,0,1)), color-stop(100%,rgba(251,223,147,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+}
+
+#rightAdmRow1
+{
+    width: 490px;
+    height: 200px;
+    background-color: #CCCC00;
+    background-image: url('../images/dashb/reserved.png');
+    background-repeat: no-repeat;
+    background-position: 350px 75px;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-bottom-color: #FF9900;
+}
+
+#divReserveTable
+{
+    top: 40px;
+    position: relative;
+}
+
+#rightAdmRow2
+{
+    width: 490px;
+    height: 100px;
+}
+
+#rightAdmCol1
+{
+    width: 490px;
+    height: 50px;
+    
+}
+
+
+
+#rightAdmCol2
+{
+    width: 490px;
+    height: 50px;
+
+}
+
+/*
+
+#SlotTable
+{
+    position:relative;
+    float:left;
+    width:450px;
+    left: 50px; 
+
+}
+
+.classSlotTable, .classStat, .classGraphTargetStudent
+{
+    height: 20px;
+    font-family: calibri;
+     color: #333333;
+    font-size: 17px;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: left;
+    text-indent: 20px;
+    margin-bottom: 5px;
+
+    
+}
+
+.classSlotTable
+{
+    background-image: url('../images/iconLabel/slot.png');
+    background-repeat:no-repeat;
+    background-position: left;
+    
+}
+
+.classStat
+{
+    background-image: url('../images/iconLabel/stat.png');
+    background-repeat:no-repeat;
+    background-position: left;
+}
+
+.classGraphTargetStudent
+{
+    background-image: url('../images/iconLabel/graph2.png');
+    background-repeat:no-repeat;
+    background-position: left;
+}
+
+
+
+#dAdmissionCurrentStat
+{
+    position:relative;
+    float: left;
+    width: 500px;
+    height: 380px;
+}
+
+
+
+#dTargetStudentChart
+{
+    float: left;
+    width: 500px;
+    position: relative;
+  
+}
+
+
+
+
+#dWLSSIC
+{
+    top: 40px;
+    left: 0px;
+}
+*/
+
+
+
+.accHeaderClass
+{
+    /*width: 500px;*/
+    height: 20px;
+    background-image: url('../images/Nav/right.png');
+    background-repeat:no-repeat;
+    background-position: left;
+   /* background-color: #d2d2d2;*/
+    font-family: calibri;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #3399FF;
+    text-indent: 20px;
+    text-align: left;
+    cursor: pointer;
+ /*   border-color: #FFF;
+    border-bottom-style: solid;
+    border-bottom-width: thin;*/
+}
+
+.accHeaderSelectedClass
+{
+    /*width: 500px;*/
+    height: 20px;
+    background-image: url('../images/Nav/down.png');
+    background-repeat: no-repeat;
+    background-position: left; /*background-color: #d2d2d2;*/
+    font-family: calibri;
+    font-size: 16px;
+    vertical-align: middle;
+    font-weight: bold;
+       color: #333333;
+    text-indent: 20px;
+    text-align: left;
+    cursor: pointer; /*  border-color: #FFF;
+    border-bottom-style: solid;
+    border-bottom-width: thin; */
+}
+
+
+/*Dashboard Title*/
+.dashboardTitle
+{
+    width: 1000px;
+    height: 20px;
+    font-size: 15px;
+    background-image: url('../images/iconLabel/home2.png');
+    background-repeat: no-repeat;
+    background-position: 3px;
+    font-family: calibri;
+    font-size: 15px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333333;
+    text-indent: 25px;
+    text-align: left;
+}
+
+/*
+.divBackWL
+{
+   
+    width: 68px;
+    height: 35px;
+    background-image: url('../images/dynamic/stat_applicant_bg_WL.png');
+    background-repeat: no-repeat;
+    position:relative;
+    float: left;
+
+}
+
+.divBackSSI
+{
+    top: 35px;
+    width: 68px;
+    height: 35px;
+    background-image: url('../images/dynamic/stat_applicant_bg_SSI.png');
+    background-repeat: no-repeat;
+    position:relative;
+    float:left;
+}
+
+*/
+
+.divBackDynamicN
+{
+    
+    width: 68px;
+    height: 35px;
+    background-image: url('../images/dynamic/stat_applicant_bg_N.png');
+    background-repeat: no-repeat;
+    position:relative;
+    float:left;
+}
+
+
+.divBackDynamicE
+{
+    
+    width: 68px;
+    height: 35px;
+    background-image: url('../images/dynamic/stat_applicant_bg_E.png');
+    background-repeat: no-repeat;
+    position:relative;
+    float:left;
+}
+
+.divBackDynamicS
+{
+    
+    width: 68px;
+    height: 35px;
+    background-image: url('../images/dynamic/stat_applicant_bg_S.png');
+    background-repeat: no-repeat;
+    position:relative;
+    float:left;
+}
+
+.divBackDynamicG
+{
+    
+    width: 68px;
+    height: 35px;
+    background-image: url('../images/dynamic/stat_applicant_bg_G.png');
+    background-repeat: no-repeat;
+    position:relative;
+    float:left;
+}
+
+
+
+
+.lblDynamicTitle
+{
+    
+    font-family: Calibri;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    text-indent: 30px;
+    position:relative;
+    left: 28px;
+}
+
+.lblDynamicLinkValue
+{
+    font-family: Calibri;
+    font-size: 15px;
+    font-weight: bold;
+    color: #990000;
+    position: relative;
+    top: 16px;
+    left: 15px;
+    text-decoration: none;
+}
+

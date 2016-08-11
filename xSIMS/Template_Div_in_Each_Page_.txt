@@ -1,0 +1,11 @@
+<div id="mainDiv">
+
+    <div id="topDiv">
+
+    </div>
+
+    <div id="contentDiv">
+
+    </div>
+
+</div>

@@ -1,0 +1,180 @@
+﻿#dMain
+{
+    width: 1000px;
+    height: 500px;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f5f6f6+0,dbdce2+21,b8bac6+49,dddfe3+80,f5f6f6+100;Grey+Pipe */
+background: rgb(245,246,246); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(245,246,246,1) 0%, rgba(219,220,226,1) 21%, rgba(184,186,198,1) 49%, rgba(221,223,227,1) 80%, rgba(245,246,246,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f6f6', endColorstr='#f5f6f6',GradientType=0 ); /* IE6-9 */
+
+    border-radius: 10px;
+}
+
+
+#dTop
+{
+    width: 995x;
+    height: 125px;
+    position:relative;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 5px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,596a72+100;Grey+3D+%231 */
+background: rgb(206,220,231); /* Old browsers */
+background: -moz-linear-gradient(45deg,  rgba(206,220,231,1) 0%, rgba(89,106,114,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg,  rgba(206,220,231,1) 0%,rgba(89,106,114,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    
+}
+
+#dAppInfoDetails
+{
+    position:relative;
+    background-color: #C0C0C0;
+    height: 80px;
+    position:relative;
+    border-radius:5px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+
+#dAID0
+{
+width: 80px;
+height: 80px; 
+position:relative;  
+float: left;
+}
+ 
+#dAID1
+{
+    position: relative;
+    float: left;
+    table-layout: fixed;
+    border-radius: 5px;
+    font-family: 'Arial Rounded MT Bold';
+    font-size: 15px;
+}   
+
+#dAID2
+{
+    position: relative;
+    float: left;
+    table-layout: fixed;
+    border-radius: 5px;
+    margin-left: 50px;
+    font-family: 'Arial Rounded MT Bold';
+    font-size: 15px;
+}
+
+
+    
+    
+.EDEInput
+{
+    width: 50px;
+    height: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    font-family: verdana;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.EDEResult
+{
+    width: 50px;
+    height: 14px;
+    border-radius: 3px;
+    font-family: verdana;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #999966;
+    font-weight: bold;
+    color: #CC0000;
+}
+
+    
+#dContent
+{
+    width: 1000px;
+    top: 10px;
+    position: relative;
+    
+}
+
+#dEntry
+{
+    padding-left: 5px;
+    position: relative;
+    float:left;
+    width: 500px;
+}
+
+
+
+#dSummary
+{
+    height: 310px;
+    width: 350px;
+    position: relative;
+    float: left;
+    border-radius: 10px;
+    left: 50px;
+ /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffe8+0,d6dbbf+100;Wax+3D+%231 */
+background: rgb(254,255,232); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(254,255,232,1) 0%, rgba(214,219,191,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(254,255,232,1) 0%,rgba(214,219,191,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(254,255,232,1) 0%,rgba(214,219,191,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#d6dbbf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+#dObservation
+{
+position: relative;
+padding-left: 5px;    
+}
+
+.title
+{
+    border-radius: 5px;
+    font-family: Verdana;
+    font-size: 12pt;
+    padding: 5px;
+    color: #003300;
+    margin-bottom: 5px;
+    font-weight: bolder;
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffe8+0,bfd841+100 */
+background: rgb(254,255,232); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(254,255,232,1) 0%, rgba(191,216,65,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(254,255,232,1) 0%,rgba(191,216,65,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(254,255,232,1) 0%,rgba(191,216,65,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#bfd841',GradientType=0 ); /* IE6-9 */
+
+  
+}
+
+.subTitle
+{
+    font-family: Calibri;
+    font-size: 11pt;
+    font-weight: bolder;
+}
+
+.rounded_grid
+{
+    border: 1px solid #003300;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
