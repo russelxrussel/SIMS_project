@@ -82,6 +82,7 @@ public partial class actgPenalty : System.Web.UI.Page
             {
                 cmd1.CommandType = CommandType.StoredProcedure;
                  cmd1.Parameters.AddWithValue("@v_duedate",txtDated.Text);
+                 cmd1.Parameters.AddWithValue("@v_pymtmet", drpMOP.Text);
                  cmd1.Connection.Open();
                 SqlDataReader reader = cmd1.ExecuteReader();
                 cnt = 0;
