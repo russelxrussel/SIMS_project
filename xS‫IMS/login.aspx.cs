@@ -16,9 +16,7 @@ public partial class login : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
- 
-
-            
+   
         }
 
         //Set the focus
@@ -72,7 +70,7 @@ public partial class login : System.Web.UI.Page
                     Session["STARTYEAR"] = oLogin.SYSTART;
 
                     Response.Redirect("~/home.aspx");
-
+                   
                     //Testing insert
                     //Successfully insert new record
                  //oLogin.INSERT_SAP_BP(6, "VASQUEZ, RUSSEL", "111-1111","VASQUEZ, RUSSEL", 1, "Grade 1","", "Standard", "", "N", "Y", "G1");
