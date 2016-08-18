@@ -4,3 +4,8 @@ C:\Users\programmer\Documents\Visual Studio 2010\Projects\SIMSBDAL\bin\Debug\SIM
 C:\Users\programmer\Documents\Visual Studio 2010\Projects\SIMSBDAL\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\programmer\Documents\Visual Studio 2010\Projects\SIMSBDAL\obj\Debug\SIMSBDAL.dll
 C:\Users\programmer\Documents\Visual Studio 2010\Projects\SIMSBDAL\obj\Debug\SIMSBDAL.pdb
+C:\Users\programmer\Desktop\MyGitHub\SIMS_project\SIMSBDAL\bin\Debug\SIMSBDAL.dll.config
+C:\Users\programmer\Desktop\MyGitHub\SIMS_project\SIMSBDAL\bin\Debug\SIMSBDAL.dll
+C:\Users\programmer\Desktop\MyGitHub\SIMS_project\SIMSBDAL\bin\Debug\SIMSBDAL.pdb
+C:\Users\programmer\Desktop\MyGitHub\SIMS_project\SIMSBDAL\obj\Debug\SIMSBDAL.dll
+C:\Users\programmer\Desktop\MyGitHub\SIMS_project\SIMSBDAL\obj\Debug\SIMSBDAL.pdb

@@ -28,9 +28,10 @@
 <!-- 
 This will make Menu Item work in Google Chrome.
 8/27/2015 : Russel
+<browser refID="safari1plus">
 -->
 <browsers>
-  <browser refID="safari1plus">
+   <browser refID="safari1plus">
     <controlAdapters>
       <adapter controlType="System.Web.UI.WebControls.Menu" adapterType="" />
     </controlAdapters>
