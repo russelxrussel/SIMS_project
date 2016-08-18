@@ -71,13 +71,15 @@ public partial class login : System.Web.UI.Page
                     //Get Start Year for ISAMS
                     Session["STARTYEAR"] = oLogin.SYSTART;
 
+                    Response.Redirect("~/home.aspx");
+
                     //Testing insert
                     //Successfully insert new record
                  //oLogin.INSERT_SAP_BP(6, "VASQUEZ, RUSSEL", "111-1111","VASQUEZ, RUSSEL", 1, "Grade 1","", "Standard", "", "N", "Y", "G1");
 
                    // oLogin.UPDATE_SAP_BP("16-0055","G11","PP","U","N","Y");
 
-                    Response.Redirect("~/home.aspx");
+                   
 
                 }
                 else { Response.Write("User was deactivated"); }
