@@ -409,7 +409,7 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
           
           <asp:TemplateField>
           <ItemTemplate>
-           <asp:LinkButton runat="server" ID="lnkRemove" Text="Remove" CssClass="link_sliding_red"></asp:LinkButton>
+           <asp:LinkButton runat="server" ID="lnkRemove" Text="Remove" CssClass="link_sliding_red" OnClick="lnkRemove_Click"></asp:LinkButton>
           </ItemTemplate>
           </asp:TemplateField>
       </Columns>

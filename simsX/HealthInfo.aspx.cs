@@ -12,10 +12,6 @@ public partial class HealthInfo : System.Web.UI.Page
     Applicant oApplicant = new Applicant();
     Utilities oUtilities = new Utilities();
 
-    public int QUANTITY_AVAILABLE { get; set; }
-    public int QUANTITY_LEVEL { get; set; }
-
-    public string TRANSACTION_CODE { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -321,8 +317,8 @@ public partial class HealthInfo : System.Web.UI.Page
         txtDateComplaint.Text = dc.ToShortDateString();
         txtTimeComplaint.Text = DateTime.Now.ToShortTimeString();
 
-        //TRANSACTION_CODE = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
-        //lblTransCode.Text = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
+
+        //Hold the value for the entire page cycle
         ViewState["TRANSACTIONCODE"] = dc.ToString("yyyyMMdd") + DateTime.Now.ToString("mmssf");
     }
 
@@ -412,8 +408,6 @@ public partial class HealthInfo : System.Web.UI.Page
 
         dv.RowFilter = "medCode= '" + _medCode + "'";
 
-
-
         if (dv.Count > 0)
         {
             ddMedBatch.DataSource = dv;
@@ -429,7 +423,6 @@ public partial class HealthInfo : System.Web.UI.Page
         {
 
             ddMedBatch.Items.Clear();
-
             lblAvailableQuantity.Text = "";
         }
 
@@ -449,7 +442,7 @@ public partial class HealthInfo : System.Web.UI.Page
             DataRowView drv = dv[0];
 
             lblAvailableQuantity.Text = drv["stockOnHand"].ToString(); // dv.Table.Columns["stockOnHand"].ToString();
-            //QUANTITY_LEVEL = dv.Table.Columns["minLevel"].ToString();
+         
         
         }
 
@@ -1012,6 +1005,9 @@ public partial class HealthInfo : System.Web.UI.Page
         lnkAddComplaint.Visible = true;
         lnkAddMedicine.Visible = true;
 
+        //Will Reset if medicine is inventoriable
+        displayBatch(ddMedicineSelection.SelectedValue.ToString());
+        
     }
 
 
@@ -1302,6 +1298,7 @@ public partial class HealthInfo : System.Web.UI.Page
             //SAVING COMPLAINT RECORD
             //VALIDATE TYPE OF SAVING
 
+            //ADDING NEW COMPLAINT RECORD
             if ((int)ViewState["COMPLAINT_ACTION"] == 1)
             {
                 oHealth.INSERT_COMPLAINT_SUMMARY(ViewState["TRANSACTIONCODE"].ToString(), "2016-2017", lblStudNum.Text, Convert.ToDateTime(txtDateComplaint.Text), Convert.ToDateTime(txtTimeComplaint.Text),
@@ -1431,8 +1428,6 @@ public partial class HealthInfo : System.Web.UI.Page
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
 
-            //ViewState["_selectedID"] = r.Cells[1].Text;
-            //lblMOT.Text = ViewState["_selectedID"].ToString();
             ViewState["TRANSACTIONCODE"] = r.Cells[1].Text;
 
 
@@ -1481,6 +1476,52 @@ public partial class HealthInfo : System.Web.UI.Page
 
         //panelEdit.Enabled = true;
 
+    }
+
+    
+    /*This will remove record of complaint record
+     * together if the medicine specify on the complaint is 
+     * have inventory it will regain number of quantity specify on the complaint
+     */
+    protected void lnkRemove_Click(object sender, EventArgs e)
+    {
+        //Validate first if the gridview of complaint history is empty or not.
+        if (gvComplaintHistory.Rows.Count > 0)
+        {
+            ////Instantiate the data of Session complaint history on local data table
+            //DataTable dt = (DataTable)Session["COMPLAINT_HISTORY"];
+            //DataView dv = dt.DefaultView;
+
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+
+            //Assing on temporary variable
+            string sTransCode = r.Cells[1].Text;
+            
+            //Effect it will not display on gridview anymore.
+
+            //!! Change the reference into datatable of complaint history !!
+            
+            if (gvMedicineList.Rows.Count > 0)
+            {
+                //Iterate on gridview medicine list
+                foreach (GridViewRow row in gvMedicineList.Rows)
+                {
+            
+            
+                    int iBatchId = int.Parse(row.Cells[1].Text);
+                    string sMedCode = row.Cells[2].Text;
+                    int iQty = int.Parse(row.Cells[4].Text);
+
+                    oHealth.DISABLE_COMPLAINT_TRANSACTION(sTransCode, iBatchId, sMedCode, iQty, "Testing");
+                }
+
+
+              
+            }
+          
+
+        }
     }
 
     protected void lnkResetComplaint_Click(object sender, EventArgs e)

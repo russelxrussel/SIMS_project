@@ -733,9 +733,9 @@ namespace SIMSBDAL
 
         }
 
-        
+
         //Make Complaint Record Inactive
-        public void DISABLE_COMPLAINT_TRANSACTION(string _transcode, string _userID)
+        public void DISABLE_COMPLAINT_TRANSACTION(string _transcode, int _batchID, string _medCode, int _quantity, string _userID)
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
@@ -746,6 +746,9 @@ namespace SIMSBDAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@TRANSCODE", _transcode);
+                    cmd.Parameters.AddWithValue("@BATCHID", _batchID);
+                    cmd.Parameters.AddWithValue("@MEDCODE", _medCode);
+                    cmd.Parameters.AddWithValue("@QUANTITY", _quantity);
                     cmd.Parameters.AddWithValue("@USERID", _userID);
 
                     cn.Open();
