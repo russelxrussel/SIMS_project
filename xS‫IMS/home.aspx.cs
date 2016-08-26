@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SIMSBDAL;
 using System.Data;
-using System.Web.UI.HtmlControls; //to call div tag in code behind
+using System.Web.UI.HtmlControls; 
 
 
 public partial class home : System.Web.UI.Page

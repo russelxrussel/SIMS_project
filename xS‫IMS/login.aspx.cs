@@ -69,6 +69,7 @@ public partial class login : System.Web.UI.Page
                     //Get Start Year for ISAMS
                     Session["STARTYEAR"] = oLogin.SYSTART;
 
+                    Server.MapPath("~/home.aspx");
                     Response.Redirect("~/home.aspx");
                    
                     //Testing insert
