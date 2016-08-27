@@ -335,14 +335,21 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
         </div>
   <br />
     <asp:Label runat="server" ID="lblTransCode" Visible="False"></asp:Label>
-    <table width="50%">
+    <table width="70%">
     <tr>
     <td> <asp:LinkButton runat="server" ID="lnkSaveComplaint" CssClass="link_sliding_lightGreen"
-             Text="UPDATE" onclick="lnkSaveComplaint_Click"></asp:LinkButton> </td>
-          <td>
-           <asp:LinkButton runat="server" ID="lnkResetComplaint" CssClass="link_sliding_lightGreen"
-             Text="RESET" onclick="lnkResetComplaint_Click"></asp:LinkButton> 
-          </td>
+             Text="UPDATE" onclick="lnkSaveComplaint_Click"></asp:LinkButton> 
+    </td>
+    
+    <td>
+     <asp:LinkButton runat="server" ID="lnkResetComplaint" CssClass="link_sliding_lightGreen"
+       Text="RESET" onclick="lnkResetComplaint_Click"></asp:LinkButton> 
+    </td>
+
+        <td>
+        <asp:LinkButton runat="server" ID="lnkRemoveComplaintRecord" CssClass="link_sliding_red"
+             Text="REMOVE" onclick="lnkRemoveComplaintRecord_Click"></asp:LinkButton> 
+        </td>
     </tr>
     
     </table>          
@@ -407,11 +414,6 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
           <asp:BoundField DataField="complaintDesc" HeaderText="Complaint" 
               ReadOnly="True" />
           
-          <asp:TemplateField>
-          <ItemTemplate>
-           <asp:LinkButton runat="server" ID="lnkRemove" Text="Remove" CssClass="link_sliding_red" OnClick="lnkRemove_Click"></asp:LinkButton>
-          </ItemTemplate>
-          </asp:TemplateField>
       </Columns>
       <PagerStyle CssClass="pgr" />
   </asp:GridView>

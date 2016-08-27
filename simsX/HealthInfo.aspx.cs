@@ -46,6 +46,10 @@ public partial class HealthInfo : System.Web.UI.Page
 
             ViewState["COMPLAINT_ACTION"] = 1;
 
+            //This will use to check if the user
+            //didn't add the medicine with stock value.
+            //08/27/2016
+            ViewState["FLG_MED_CONTROL"] = false;
 
             //Generation of TransactionCode
             generateReferenceNum();
@@ -441,7 +445,7 @@ public partial class HealthInfo : System.Web.UI.Page
         {
             DataRowView drv = dv[0];
 
-            lblAvailableQuantity.Text = drv["stockOnHand"].ToString(); // dv.Table.Columns["stockOnHand"].ToString();
+            lblAvailableQuantity.Text = drv["inStock"].ToString(); // dv.Table.Columns["stockOnHand"].ToString();
          
         
         }
@@ -1008,6 +1012,8 @@ public partial class HealthInfo : System.Web.UI.Page
         //Will Reset if medicine is inventoriable
         displayBatch(ddMedicineSelection.SelectedValue.ToString());
         
+        //Hide Remove Complaint Button
+        lnkRemoveComplaintRecord.Visible = false; 
     }
 
 
@@ -1045,7 +1051,10 @@ public partial class HealthInfo : System.Web.UI.Page
             
             displayBatch(ddMedicineSelection.SelectedValue.ToString());
             panMedBatch.Visible = true;
-            
+
+            //Will avoid saving of complaint if the user forgot to ADD the 
+            //medicine with inventory value.
+            ViewState["FLG_MED_CONTROL"] = true;
         }
 
         else
@@ -1054,7 +1063,9 @@ public partial class HealthInfo : System.Web.UI.Page
             panMedBatch.Visible = false;
             txtMedQuantity.Text = "";
 
-           
+            //Allow to Save the compaint incase no other 
+            //medicine with inventory value open
+            ViewState["FLG_MED_CONTROL"] = false;
 
             if (gvMedicineList.Rows.Count == 0)
             {
@@ -1230,6 +1241,8 @@ public partial class HealthInfo : System.Web.UI.Page
 
                 Session["tempDTMedicine"] = dt;
 
+                //Allow saving the complaint
+                ViewState["FLG_MED_CONTROL"] = false;
 
                 gvMedicineList.DataSource = dt;
                 gvMedicineList.DataBind();
@@ -1264,6 +1277,9 @@ public partial class HealthInfo : System.Web.UI.Page
 
                     Session["tempDTMedicine"] = dt;
 
+                    //Allow saving the complaint
+                    ViewState["FLG_MED_CONTROL"] = false;
+
 
                     gvMedicineList.DataSource = dt;
                     gvMedicineList.DataBind();
@@ -1291,6 +1307,11 @@ public partial class HealthInfo : System.Web.UI.Page
             MessageDialog("Complaint and Medicine should not be empty", 3);
             return;
         }
+
+        else if ((bool)ViewState["FLG_MED_CONTROL"] == true) {
+            MessageDialog("Please add the medicine first", 3);
+            return;
+        }      
 
         else
         {
@@ -1418,7 +1439,7 @@ public partial class HealthInfo : System.Web.UI.Page
 
     protected void lnkEdit_Click(object sender, EventArgs e)
     {
-        
+      
         if (gvComplaintHistory.Rows.Count > 0)
         {
 
@@ -1470,6 +1491,9 @@ public partial class HealthInfo : System.Web.UI.Page
             displayPatientMedicine(ViewState["TRANSACTIONCODE"].ToString());
 
             ViewState["COMPLAINT_ACTION"] = 2; //UPDATE
+
+            //Show remove button of complaint record
+            lnkRemoveComplaintRecord.Visible = true;
         }
 
         //displaySelectedSection((int)ViewState["_selectedID"]);
@@ -1478,36 +1502,27 @@ public partial class HealthInfo : System.Web.UI.Page
 
     }
 
-    
-    /*This will remove record of complaint record
-     * together if the medicine specify on the complaint is 
-     * have inventory it will regain number of quantity specify on the complaint
-     */
-    protected void lnkRemove_Click(object sender, EventArgs e)
+
+    protected void lnkResetComplaint_Click(object sender, EventArgs e)
     {
-        //Validate first if the gridview of complaint history is empty or not.
-        if (gvComplaintHistory.Rows.Count > 0)
-        {
-            ////Instantiate the data of Session complaint history on local data table
-            //DataTable dt = (DataTable)Session["COMPLAINT_HISTORY"];
-            //DataView dv = dt.DefaultView;
+        resetComplaintsFields();
+    }
 
-            var selEdit = (Control)sender;
-            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-
-            //Assing on temporary variable
-            string sTransCode = r.Cells[1].Text;
-            
-            //Effect it will not display on gridview anymore.
-
-            //!! Change the reference into datatable of complaint history !!
-            
-            if (gvMedicineList.Rows.Count > 0)
+    /*This will remove record of complaint record
+    * together if the medicine specify on the complaint is 
+    * have inventory it will regain number of quantity specify on the complaint
+    */
+    protected void lnkRemoveComplaintRecord_Click(object sender, EventArgs e)
+    { 
+        if (gvMedicineList.Rows.Count > 0)
             {
+                
+                //Assign Transaction Code into local string variable
+                string sTransCode = ViewState["TRANSACTIONCODE"].ToString();
+
                 //Iterate on gridview medicine list
                 foreach (GridViewRow row in gvMedicineList.Rows)
                 {
-            
             
                     int iBatchId = int.Parse(row.Cells[1].Text);
                     string sMedCode = row.Cells[2].Text;
@@ -1516,16 +1531,13 @@ public partial class HealthInfo : System.Web.UI.Page
                     oHealth.DISABLE_COMPLAINT_TRANSACTION(sTransCode, iBatchId, sMedCode, iQty, "Testing");
                 }
 
-
-              
+            //Inform user about transaction
+                MessageDialog("Complaint was deleted successfully.", 2);
+                resetComplaintsFields();
+                
+            //Reload the complaint history of Patient.
+                displayComplaintHistory(lblStudNum.Text);
             }
-          
-
         }
-    }
 
-    protected void lnkResetComplaint_Click(object sender, EventArgs e)
-    {
-        resetComplaintsFields();
-    }
 }
