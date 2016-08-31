@@ -60,7 +60,6 @@
 
     </script>
     
-
     <style type="text/css">
   
         
@@ -99,6 +98,7 @@
        
 
     </style>
+
 </asp:Content>
 
 
@@ -292,7 +292,7 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
          </tr>
 
           <tr>
-        <td>Qiven Qty:</td><td><asp:TextBox runat="server" ID="txtMedQuantity"></asp:TextBox>
+        <td>Given Qty:</td><td><asp:TextBox runat="server" ID="txtMedQuantity"></asp:TextBox>
             <asp:LinkButton runat="server" ID="lnkBatchAdd" CssClass="link_sliding_lightBlue" 
                 onclick="lnkBatchAdd_Click">Add</asp:LinkButton></td><td></td>
         </tr>

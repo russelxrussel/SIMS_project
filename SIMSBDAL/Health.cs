@@ -19,7 +19,12 @@ namespace SIMSBDAL
         public string MEDGENERICNAME { get; set; }
         public string MEDTYPE { get; set; }
         public string MEDLEVEL { get; set; }
+
         
+        //will use for portion medicine level
+        public int BATCHID { get; set; }
+        public bool POR_MED_STAT { get; set; }
+
         
         #endregion
 
@@ -78,6 +83,49 @@ namespace SIMSBDAL
             return dt;  
         }
         
+        //08.30.2016
+        public bool CHECK_MEDICINE_PORTION_ITEM(string _medCode)
+        {
+            bool x = false;
+
+                string strSQL = "spGET_MEDICINE_PORTION";
+                DataTable dt = new DataTable();
+                using (SqlConnection cn = new SqlConnection(CS))
+                {
+                    using(SqlCommand cmd = new SqlCommand(strSQL, cn))
+                    {
+
+                    cn.Open();
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MEDCODE", _medCode);
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        { 
+                        BATCHID = int.Parse(dr["batchID"].ToString());
+                        MEDCODE = dr["medCode"].ToString();
+                        POR_MED_STAT = (bool)dr["medStatus"];
+                        }
+
+                        x = true;
+                    }
+
+                    else
+                    { 
+                        x = false; }
+
+                    }
+
+                    return x;
+                }
+
+               
+
+        }
 
         //07.25.2016
 

@@ -51,6 +51,7 @@ public partial class HealthInfo : System.Web.UI.Page
             //08/27/2016
             ViewState["FLG_MED_CONTROL"] = false;
 
+       
             //Generation of TransactionCode
             generateReferenceNum();
         }
@@ -368,6 +369,7 @@ public partial class HealthInfo : System.Web.UI.Page
 
     //Condition if the List of Batch Medicine will popup or not.
     //== 07/20/2016
+ 
     private bool checkMedLevel(string _medCode)
     {
         bool x;
@@ -383,6 +385,7 @@ public partial class HealthInfo : System.Web.UI.Page
         
         if (dv.Count > 0)
         {
+            ViewState["MED_LEVEL"] = drv[""].ToString();
        
             if (drv["medLevelCode"].ToString() == "LV2")
             {
@@ -410,6 +413,8 @@ public partial class HealthInfo : System.Web.UI.Page
         DataTable dt = oHealth.GET_MEDICINE_BATCH_LIST();
         DataView dv = dt.DefaultView;
 
+
+
         dv.RowFilter = "medCode= '" + _medCode + "'";
 
         if (dv.Count > 0)
@@ -425,9 +430,10 @@ public partial class HealthInfo : System.Web.UI.Page
         }
         else
         {
-
             ddMedBatch.Items.Clear();
             lblAvailableQuantity.Text = "";
+            MessageDialog("No Medicine stock available.", 3);
+            return; 
         }
 
     
@@ -1010,7 +1016,7 @@ public partial class HealthInfo : System.Web.UI.Page
         lnkAddMedicine.Visible = true;
 
         //Will Reset if medicine is inventoriable
-        displayBatch(ddMedicineSelection.SelectedValue.ToString());
+        //displayBatch(ddMedicineSelection.SelectedValue.ToString());
         
         //Hide Remove Complaint Button
         lnkRemoveComplaintRecord.Visible = false; 
@@ -1043,96 +1049,158 @@ public partial class HealthInfo : System.Web.UI.Page
 
     protected void lnkAddMedicine_Click(object sender, EventArgs e)
     {
+        //Assign Temporary Data Table for Medicine
         DataTable dt = (DataTable)Session["tempDTMedicine"];
 
-        if (checkMedLevel(ddMedicineSelection.SelectedValue.ToString()))
+        //Get Medicine list from Data Source
+        DataTable dtMed = oHealth.GET_MEDICINE_LIST();
+        DataView dv = dtMed.DefaultView;
+        
+        //Validate level type of selected medicine
+        dv.RowFilter = "medCode= '" + ddMedicineSelection.SelectedValue.ToString() + "'";
+
+        DataRowView drv = dv[0];
+
+
+        if (dv.Count > 0)
         {
-          
+            string sMedLevel = drv["medLevelCode"].ToString();
+            string sMedCode = drv["medCode"].ToString();
+
+
+            ////Medicine level is 3 - Distributed by Portion
+            //if (sMedLevel == "LV3")
+            //{
+            //    displayBatch(sMedCode);
+            //    panMedBatch.Visible = true;
+
+
+            //    //Will avoid saving of complaint if the user forgot to ADD the 
+            //    //medicine with inventory value.
+            //    ViewState["FLG_MED_CONTROL"] = true;
+
+            //}
             
-            displayBatch(ddMedicineSelection.SelectedValue.ToString());
-            panMedBatch.Visible = true;
-
-            //Will avoid saving of complaint if the user forgot to ADD the 
-            //medicine with inventory value.
-            ViewState["FLG_MED_CONTROL"] = true;
-        }
-
-        else
-        {
-
-            panMedBatch.Visible = false;
-            txtMedQuantity.Text = "";
-
-            //Allow to Save the compaint incase no other 
-            //medicine with inventory value open
-            ViewState["FLG_MED_CONTROL"] = false;
-
-            if (gvMedicineList.Rows.Count == 0)
+            //Medicine level is 2 - Distributed by Pieces
+            if (sMedLevel == "LV2")
             {
-                DataRow row = dt.NewRow();
+                displayBatch(sMedCode);
+                panMedBatch.Visible = true;
 
-                row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
-                row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
-                //Avoid to add quantity if non accountable
-                if (!string.IsNullOrEmpty(txtMedQuantity.Text))
-                {
-                    row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
-                }
-                else
-                {
-                    txtMedQuantity.Text = "";
-                }
-
-                dt.Rows.Add(row);
-
-                Session["tempDTMedicine"] = dt;
-
-
-                gvMedicineList.DataSource = dt;
-                gvMedicineList.DataBind();
-
-                panMedBatch.Visible = false;
+                //Will avoid saving of complaint if the user forgot to ADD the 
+                //medicine with inventory value.
+                ViewState["FLG_MED_CONTROL"] = true;
             }
 
+
+            //Medicine level is 1 = No distribution type
+            //if (sMedLevel == "LV1")
             else
-            { 
-               //validate if medicine / action exist
-                if (checkMedicineExist())
-                {
-                    MessageDialog("Medicine already in the list", 3);
-                    return;
-                }
-                else
-                {
-                DataRow row = dt.NewRow();
-
-                row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
-                row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
-                //Avoid to add quantity if non accountable
-                if (!string.IsNullOrEmpty(txtMedQuantity.Text))
-                {
-                    row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
-                }
-                else
-                {
-                    txtMedQuantity.Text = "";
-                }
-
-                dt.Rows.Add(row);
-
-                Session["tempDTMedicine"] = dt;
-
-
-                gvMedicineList.DataSource = dt;
-                gvMedicineList.DataBind();
+            {
 
                 panMedBatch.Visible = false;
+                txtMedQuantity.Text = "";
+
+                int iBatchID = 0;
+               
+                //Allow to Save the compaint incase no other 
+                //medicine with inventory value open
+                ViewState["FLG_MED_CONTROL"] = false;
+
+                //Check if level medicine is portion
+                if (sMedLevel == "LV3")
+                {
+                    if (oHealth.CHECK_MEDICINE_PORTION_ITEM(sMedCode))
+                    {
+                        if (oHealth.POR_MED_STAT)
+                        {
+                            iBatchID = oHealth.BATCHID;
+                        }
+                        else
+                        {
+                            MessageDialog("Stock for this medicine was not available, please consult to Head Nurse.", 3);
+                            return;
+                        }
+                    }
+                    else
+                    {
+
+                        MessageDialog("Medicine not yet initialize, please consult to Head Nurse.", 3);
+                        return;
+                    }
                 }
-            
+
+
+                if (gvMedicineList.Rows.Count == 0)
+                {
+                    DataRow row = dt.NewRow();
+
+                    row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
+                    row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
+
+                    //Avoid to add quantity if non accountable
+                    if (!string.IsNullOrEmpty(txtMedQuantity.Text))
+                    {
+                        row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
+                    }
+                    else
+                    {
+                        txtMedQuantity.Text = "";
+                    }
+
+                    dt.Rows.Add(row);
+
+                    Session["tempDTMedicine"] = dt;
+
+
+                    gvMedicineList.DataSource = dt;
+                    gvMedicineList.DataBind();
+
+                    panMedBatch.Visible = false;
+                }
+
+                else
+                {
+                    //validate if medicine / action exist
+                    if (checkMedicineExist())
+                    {
+                        MessageDialog("Medicine already in the list", 3);
+                        return;
+                    }
+                    else
+                    {
+                        DataRow row = dt.NewRow();
+
+                        row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
+                        row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
+                        //Avoid to add quantity if non accountable
+                        if (!string.IsNullOrEmpty(txtMedQuantity.Text))
+                        {
+                            row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
+                        }
+                        else
+                        {
+                            txtMedQuantity.Text = "";
+                        }
+
+                        dt.Rows.Add(row);
+
+                        Session["tempDTMedicine"] = dt;
+
+
+                        gvMedicineList.DataSource = dt;
+                        gvMedicineList.DataBind();
+
+                        panMedBatch.Visible = false;
+                    }
+
+                }
             }
-           
+
+
         }
 
+       
         
     }
 
