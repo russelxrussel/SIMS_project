@@ -306,8 +306,8 @@ Recommendation:&nbsp <asp:DropDownList runat="server" ID="ddClinicRecommendation
         <div id="dMedicineGrid">
         <asp:GridView runat="server" ID="gvMedicineList" CssClass="mGrid"
                 GridLines="None" 
-                EnableModelValidation="True">
-                <AlternatingRowStyle CssClass="alt" /> 
+                EnableModelValidation="True" OnRowDataBound="gvMedicineList_RowDataBound">
+                <AlternatingRowStyle CssClass="alt"  /> 
         
             <Columns>
                 <asp:TemplateField>

@@ -11,6 +11,7 @@ using SIMSBDAL;
 public partial class heaSetUp : System.Web.UI.Page
 {
     Health oHealth = new Health();
+    Utilities oUtilities = new Utilities();
    
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,44 +19,14 @@ public partial class heaSetUp : System.Web.UI.Page
         {
             DISPLAY_MEDICINE_TYPE();
             DISPLAY_MEDICINE_LEVEL();
+
+            DISPLAY_MEDICINE_LIST();
         }
 
 
 
     }
 
-    private void DISPLAY_MEDICINE_TYPE()
-    {
-        DataTable dt = oHealth.GET_MEDICINE_TYPE();
-
-        ddMedicineType.DataSource = dt;
-        ddMedicineType.DataValueField = dt.Columns["medTypeCode"].ToString();
-        ddMedicineType.DataTextField = dt.Columns["TypeDesc"].ToString();
-        ddMedicineType.DataBind();
-
-        ddMedicineType.Items.Insert(0, new ListItem("-SELECT-"));
-    }
-
-    private void DISPLAY_MEDICINE_LEVEL()
-    {
-        DataTable dt = oHealth.GET_MEDICINE_LEVEL();
-
-        ddMedicineLevel.DataSource = dt;
-        ddMedicineLevel.DataValueField = dt.Columns["medLevelCode"].ToString();
-        ddMedicineLevel.DataTextField = dt.Columns["medLevelDesc"].ToString();
-        ddMedicineLevel.DataBind();
-
-        ddMedicineLevel.Items.Insert(0, new ListItem("-SELECT-"));
-    }
-
-    private void CLEAR_MEDICINE_INPUT()
-    {
-        txtMedicineCode.Text = "";
-        txtMedicineDesc.Text = "";
-        txtGenericName.Text = "";
-        ddMedicineLevel.SelectedIndex = 0;
-        ddMedicineType.SelectedIndex = 0;
-    }
 
     protected void lnkSave_Click(object sender, EventArgs e)
     {
@@ -79,4 +50,44 @@ public partial class heaSetUp : System.Web.UI.Page
         }
 
     }
+
+
+    /*
+   ========================================
+   METHOD DECLARATION AREA
+   ========================================
+   */
+
+    #region "METHOD AREA"
+    
+    private void DISPLAY_MEDICINE_TYPE()
+    {
+        oUtilities.GENERIC_DROPDOWN(ddMedicineType,oHealth.GET_MEDICINE_TYPE(), "medTypeCode", "TypeDesc");
+        ddMedicineType.Items.Insert(0, new ListItem("-SELECT-"));
+    }
+
+    private void DISPLAY_MEDICINE_LEVEL()
+    {
+        oUtilities.GENERIC_DROPDOWN(ddMedicineLevel, oHealth.GET_MEDICINE_LEVEL(), "medLevelCode", "medLevelDesc");
+        ddMedicineLevel.Items.Insert(0, new ListItem("-SELECT-"));
+    }
+
+    private void CLEAR_MEDICINE_INPUT()
+    {
+        txtMedicineCode.Text = "";
+        txtMedicineDesc.Text = "";
+        txtGenericName.Text = "";
+        ddMedicineLevel.SelectedIndex = 0;
+        ddMedicineType.SelectedIndex = 0;
+    }
+
+
+    //Get list of Medicine
+    private void DISPLAY_MEDICINE_LIST()
+    {
+        oUtilities.GENERIC_DROPDOWN(ddMedicineList, oHealth.GET_MEDICINE_LIST(), "medCode", "medDesc");
+        ddMedicineList.Items.Insert(0, new ListItem("-SELECT-"));
+    }
+    #endregion
 }
+

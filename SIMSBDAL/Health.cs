@@ -89,7 +89,8 @@ namespace SIMSBDAL
             bool x = false;
 
                 string strSQL = "spGET_MEDICINE_PORTION";
-                DataTable dt = new DataTable();
+                //string strSQL = "SELECT * FROM Health.Medicine_Portion_RF WHERE medCode = '" + _medCode + "'";
+      
                 using (SqlConnection cn = new SqlConnection(CS))
                 {
                     using(SqlCommand cmd = new SqlCommand(strSQL, cn))
@@ -101,7 +102,6 @@ namespace SIMSBDAL
                     cmd.Parameters.AddWithValue("@MEDCODE", _medCode);
 
                     SqlDataReader dr = cmd.ExecuteReader();
-
                     if (dr.HasRows)
                     {
                         while (dr.Read())
@@ -234,7 +234,6 @@ namespace SIMSBDAL
         {
 
             bool x = false;
-
 
             using (SqlConnection cn = new SqlConnection(CS))
             {

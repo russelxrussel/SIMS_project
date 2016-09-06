@@ -93,6 +93,20 @@ namespace SIMSBDAL
            
         }
 
+        /*This will use exclusive only for Dropdown control on entire project
+         * 09-05-2016
+         * Russel Vasquez
+         */
+        public void GENERIC_DROPDOWN(DropDownList dd, DataTable dt, string colValue, string colText)
+        {
+            DataTable datatable = dt;
+
+            dd.DataSource = datatable;
+            dd.DataTextField = dt.Columns[colValue].ToString();
+            dd.DataTextField = dt.Columns[colText].ToString();
+            dd.DataBind();
+        }
+
         //Getting Applicant Strand for Grade 11 to 12
         public DataTable GET_LEVEL_STRAND()
         { 

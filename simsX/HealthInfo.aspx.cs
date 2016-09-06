@@ -46,12 +46,22 @@ public partial class HealthInfo : System.Web.UI.Page
 
             ViewState["COMPLAINT_ACTION"] = 1;
 
-            //This will use to check if the user
-            //didn't add the medicine with stock value.
-            //08/27/2016
+            /*This will use to check if the user
+            didn't add the medicine with stock value.
+            08/27/2016
+             */
             ViewState["FLG_MED_CONTROL"] = false;
 
-       
+            /*This will use for saving purposes
+             * True turn the quantity into 0
+             * False means the medicine not portion or non countable
+             * 08/31/2016
+            
+            ViewState["IS_PORTION"] = false;
+             *  
+             */
+
+
             //Generation of TransactionCode
             generateReferenceNum();
         }
@@ -89,6 +99,7 @@ public partial class HealthInfo : System.Web.UI.Page
         chkMedicineMayGiven.DataTextField = dt.Columns["MedDesc"].ToString();
         chkMedicineMayGiven.DataValueField = dt.Columns["MedCode"].ToString();
         chkMedicineMayGiven.DataBind();
+
     }
 
 
@@ -104,6 +115,8 @@ public partial class HealthInfo : System.Web.UI.Page
         ddClinicRecommendation.DataTextField = dt.Columns["HealthStatusRemarks"].ToString();
         ddClinicRecommendation.DataValueField = dt.Columns["HealthStatusCode"].ToString();
         ddClinicRecommendation.DataBind();
+
+        //oUtilities.GENERIC_DROPDOWN(ddClinicRecommendation, oUtilities.GET_APPLICANT_HEALTH_STATUS(), "HealthStatusCode", "HealthStatusRemarks");
 
         ddClinicRecommendation.Items.Insert(0, new ListItem("--Select Status"));
     }
@@ -216,13 +229,17 @@ public partial class HealthInfo : System.Web.UI.Page
 
                 txtRemarksParent.Text = row["ParentRemarks"].ToString();
                 txtNurseRemarks.Text = row["NurseRemarks"].ToString();
+
+                string sHealthStatusCode = row["HealthStatusCode"].ToString();
+               
                 if (string.IsNullOrEmpty(row["HealthStatusCode"].ToString()))
                 {
                     //Do nothing
                     ddClinicRecommendation.SelectedIndex = 0;
                 }
                 else {
-                    ddClinicRecommendation.SelectedValue = row["HealthStatusCode"].ToString();
+                    //ddClinicRecommendation.SelectedValue = row["HealthStatusCode"].ToString();
+                    ddClinicRecommendation.SelectedValue = sHealthStatusCode;
                 }
 
                 txtOthers.Text = row["illOthers"].ToString();
@@ -362,6 +379,7 @@ public partial class HealthInfo : System.Web.UI.Page
         dt.Columns.Add("CODE", System.Type.GetType("System.String"));
         dt.Columns.Add("DESCRIPTION", System.Type.GetType("System.String"));
         dt.Columns.Add("QUANTITY", System.Type.GetType("System.Int32"));
+        dt.Columns.Add("IsPORTION", System.Type.GetType("System.Boolean"));
 
         Session["tempDTMedicine"] = dt;
     }
@@ -1049,6 +1067,9 @@ public partial class HealthInfo : System.Web.UI.Page
 
     protected void lnkAddMedicine_Click(object sender, EventArgs e)
     {
+        //Hold the portion status
+        bool isportion = false;
+
         //Assign Temporary Data Table for Medicine
         DataTable dt = (DataTable)Session["tempDTMedicine"];
 
@@ -1056,6 +1077,8 @@ public partial class HealthInfo : System.Web.UI.Page
         DataTable dtMed = oHealth.GET_MEDICINE_LIST();
         DataView dv = dtMed.DefaultView;
         
+
+
         //Validate level type of selected medicine
         dv.RowFilter = "medCode= '" + ddMedicineSelection.SelectedValue.ToString() + "'";
 
@@ -1068,20 +1091,7 @@ public partial class HealthInfo : System.Web.UI.Page
             string sMedCode = drv["medCode"].ToString();
 
 
-            ////Medicine level is 3 - Distributed by Portion
-            //if (sMedLevel == "LV3")
-            //{
-            //    displayBatch(sMedCode);
-            //    panMedBatch.Visible = true;
-
-
-            //    //Will avoid saving of complaint if the user forgot to ADD the 
-            //    //medicine with inventory value.
-            //    ViewState["FLG_MED_CONTROL"] = true;
-
-            //}
             
-            //Medicine level is 2 - Distributed by Pieces
             if (sMedLevel == "LV2")
             {
                 displayBatch(sMedCode);
@@ -1090,6 +1100,9 @@ public partial class HealthInfo : System.Web.UI.Page
                 //Will avoid saving of complaint if the user forgot to ADD the 
                 //medicine with inventory value.
                 ViewState["FLG_MED_CONTROL"] = true;
+
+                //Portion Setter
+                isportion = false;
             }
 
 
@@ -1102,6 +1115,8 @@ public partial class HealthInfo : System.Web.UI.Page
                 txtMedQuantity.Text = "";
 
                 int iBatchID = 0;
+
+          
                
                 //Allow to Save the compaint incase no other 
                 //medicine with inventory value open
@@ -1110,24 +1125,42 @@ public partial class HealthInfo : System.Web.UI.Page
                 //Check if level medicine is portion
                 if (sMedLevel == "LV3")
                 {
+                    //Check if the medicine exist on the Table
                     if (oHealth.CHECK_MEDICINE_PORTION_ITEM(sMedCode))
                     {
+                        //Check if the medicine status is True or Active
                         if (oHealth.POR_MED_STAT)
                         {
                             iBatchID = oHealth.BATCHID;
+
+                            //Portion Setter
+                            isportion = true;
                         }
+
                         else
                         {
-                            MessageDialog("Stock for this medicine was not available, please consult to Head Nurse.", 3);
+                            /*will execute if the medicine exist but the status 
+                             * is False or InActive and Exit on the function
+                             */
+                            MessageDialog("Stock for this medicine was not available, please consult the Head Nurse.", 3);
                             return;
                         }
+
                     }
                     else
                     {
-
-                        MessageDialog("Medicine not yet initialize, please consult to Head Nurse.", 3);
+                        /* Execute this if the medicine not totally exist  
+                           in the Table and Exit the function
+                         */
+                        MessageDialog("Medicine not yet initialize, please consult the Head Nurse.", 3);
                         return;
                     }
+                }
+                else 
+                { 
+                    //Portion Setter
+                    isportion = false;
+
                 }
 
 
@@ -1135,18 +1168,20 @@ public partial class HealthInfo : System.Web.UI.Page
                 {
                     DataRow row = dt.NewRow();
 
+                    row["BATCHID"] = iBatchID;
                     row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
                     row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
-
+                    row["QUANTITY"] = 0;
+                    row["IsPORTION"] = isportion;
                     //Avoid to add quantity if non accountable
-                    if (!string.IsNullOrEmpty(txtMedQuantity.Text))
-                    {
-                        row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
-                    }
-                    else
-                    {
-                        txtMedQuantity.Text = "";
-                    }
+                    //if (!string.IsNullOrEmpty(txtMedQuantity.Text))
+                    //{
+                    //    row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
+                    //}
+                    //else
+                    //{
+                    //    txtMedQuantity.Text = "";
+                    //}
 
                     dt.Rows.Add(row);
 
@@ -1171,17 +1206,20 @@ public partial class HealthInfo : System.Web.UI.Page
                     {
                         DataRow row = dt.NewRow();
 
+                        row["BATCHID"] = iBatchID;
                         row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
                         row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
+                        row["QUANTITY"] = 0;
+                        row["IsPORTION"] = isportion;
                         //Avoid to add quantity if non accountable
-                        if (!string.IsNullOrEmpty(txtMedQuantity.Text))
-                        {
-                            row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
-                        }
-                        else
-                        {
-                            txtMedQuantity.Text = "";
-                        }
+                        //if (!string.IsNullOrEmpty(txtMedQuantity.Text))
+                        //{
+                        //    row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
+                        //}
+                        //else
+                        //{
+                        //    txtMedQuantity.Text = "";
+                        //}
 
                         dt.Rows.Add(row);
 
@@ -1304,7 +1342,7 @@ public partial class HealthInfo : System.Web.UI.Page
                 row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
                 row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
                 row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
-
+                row["IsPORTION"] = false;
                 dt.Rows.Add(row);
 
                 Session["tempDTMedicine"] = dt;
@@ -1340,6 +1378,7 @@ public partial class HealthInfo : System.Web.UI.Page
                     row["CODE"] = ddMedicineSelection.SelectedValue.ToString();
                     row["DESCRIPTION"] = ddMedicineSelection.SelectedItem.ToString();
                     row["QUANTITY"] = Convert.ToInt32(txtMedQuantity.Text);
+                    row["IsPORTION"] = false;
 
                     dt.Rows.Add(row);
 
@@ -1390,9 +1429,9 @@ public partial class HealthInfo : System.Web.UI.Page
             //ADDING NEW COMPLAINT RECORD
             if ((int)ViewState["COMPLAINT_ACTION"] == 1)
             {
-                oHealth.INSERT_COMPLAINT_SUMMARY(ViewState["TRANSACTIONCODE"].ToString(), "2016-2017", lblStudNum.Text, Convert.ToDateTime(txtDateComplaint.Text), Convert.ToDateTime(txtTimeComplaint.Text),
+                oHealth.INSERT_COMPLAINT_SUMMARY(ViewState["TRANSACTIONCODE"].ToString(), Session["S_SY"].ToString(), lblStudNum.Text, Convert.ToDateTime(txtDateComplaint.Text), Convert.ToDateTime(txtTimeComplaint.Text),
                                                 txtNote.Text, chkSentHome.Checked, chkSentHospital.Checked, ddTimeIncident.SelectedValue.ToString(), ddPlaceIncident.SelectedValue.ToString(),
-                                                txtPhysician.Text, txtAmount.Text, txtRemarks.Text, false, "testing User");
+                                                txtPhysician.Text, txtAmount.Text, txtRemarks.Text, false, Session["U_USERID"].ToString());
 
 
 
@@ -1411,18 +1450,26 @@ public partial class HealthInfo : System.Web.UI.Page
 
 
                 //Saving Medicine Action Done
-                foreach (GridViewRow row in gvMedicineList.Rows)
+                DataTable dt = (DataTable)Session["tempDTMedicine"];
+ 
+               // foreach (GridViewRow row in gvMedicineList.Rows)
+               foreach(DataRow dr in dt.Rows)
                 {
-                    string getDataKey = row.Cells[1].Text;
+
+                    string getDataKey = dr["BATCHID"].ToString(); //row.Cells[1].Text;
+                    //Get the value of dataRows.
+                    //CheckBox chkPortion = (CheckBox)row.Cells[4].FindControl("IsPORTION");
+                    bool isPortionStat = Convert.ToBoolean(dr["IsPORTION"]); //;
+                    
                     int grBatchID;
                     int grQuantity;
                     bool isCountable;
+                    
 
-                    if (row.RowType == DataControlRowType.DataRow)
-                    {
-
-
-                        if (string.IsNullOrEmpty(getDataKey) || getDataKey == "&nbsp;")
+                        /*Evaluate if the batch ID is empty or Not
+                         *Empty or Blank means the 
+                         */
+                        if (getDataKey == "0")
                         {
                             grBatchID = 0;
                             grQuantity = 0;
@@ -1431,22 +1478,47 @@ public partial class HealthInfo : System.Web.UI.Page
 
                         else
                         {
-                            grBatchID = Convert.ToInt32(row.Cells[1].Text);
-                            grQuantity = Convert.ToInt32(row.Cells[4].Text);
-                            isCountable = true;
+                            grBatchID = Convert.ToInt32(dr["BATCHID"].ToString());
+                            
+                            if (isPortionStat)
+                            {
+                                grQuantity = 0;
+                                //Made this to avoid direct minus on Inventory of Medicine.
+                                isCountable = false;
+                            }
+                            else
+                            {
+                                
+                                grQuantity = Convert.ToInt32(dr["QUANTITY"].ToString());
+                                isCountable = true;
+                                /*Evaluate if the medicine is countable or not
+                                 * 0 means its not countable - the selected medicine was caring or action taken 
+                                 */
+
+                                //if (grBatchID == 0)
+                                //{
+                                //    isCountable = false;
+                                //}
+                                //else
+                                //{
+                                 
+                                //}
+                                
+                            }
+
                         }
 
-                        string grMedCode = row.Cells[2].Text;
+                        string grMedCode =  dr["CODE"].ToString(); 
 
-                        //execute substraction on medicine stock
+                        
                         oHealth.INSERT_PATIENT_MEDICINE_DETAILS(ViewState["TRANSACTIONCODE"].ToString(), grMedCode, grQuantity, grBatchID, isCountable);
 
-
+                        //This will less the quantity specify on the medicine
                         if (isCountable)
                         {
                             oHealth.UPDATE_MEDICINE_STOCK_DOWN(grBatchID, grMedCode, grQuantity);
                         }
-                    }
+                   
 
                 }
 
@@ -1607,5 +1679,15 @@ public partial class HealthInfo : System.Web.UI.Page
                 displayComplaintHistory(lblStudNum.Text);
             }
         }
+
+
+    /*This event will hide column of BatchID in 
+     * Gridview of Medicine 
+     */
+    protected void gvMedicineList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        //Hide Batch ID
+        e.Row.Cells[1].Visible = false;
+    }
 
 }
